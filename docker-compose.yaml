@@ -1,0 +1,45 @@
+version: "3.8"
+services:
+    # PHP service
+    app:
+        build: ./docker/php/.
+        container_name: app-php
+        working_dir: /var/www
+        volumes:
+            - ./:/var/www
+        networks:
+            - app-network
+
+    # Nginx service
+    nginx:
+        image: nginx:alpine
+        container_name: app-nginx
+        working_dir: /var/www
+        ports:
+            - 8001:80
+        volumes:
+            - ./:/var/www
+            - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
+        networks:
+            - app-network
+
+    # Mysql service
+    mysql:
+        image: mysql:8.0.27
+        container_name: app-mysql
+        restart: always
+        environment:
+            - MYSQL_DATABASE=dev
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_USER=app
+            - MYSQL_PASSWORD=apppass
+        volumes:
+            - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+        ports:
+            - 8982:3306
+        networks:
+            - app-network
+
+networks:
+    app-network:
+        driver: bridge
