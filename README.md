@@ -1,4 +1,5 @@
 # Bike E-Shop
+1. New project's name
 
 
 # How to run the project
