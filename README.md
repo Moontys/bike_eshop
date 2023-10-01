@@ -20,6 +20,7 @@
 
 1. Get inside the container.
 2. Generate key: ```php artisan key:generate```
+3. Check running containers ```docker ps```
 
 
 # Static analysis
