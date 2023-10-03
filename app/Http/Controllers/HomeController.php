@@ -10,7 +10,7 @@ class HomeController extends Controller
 
 
 {
-    public function home_product()  {
+    public function homeAndProduct()  {
 
         return view('pages.index');
     }

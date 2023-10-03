@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,19 +16,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-
-Route::get('/', [HomeController::class, 'home_product']);   // Home page
-
-
-Route::get('/bicycles', [HomeController::class, 'home_product']); // Product page
+Route::get('/', [HomeController::class, 'homeAndProduct']);   // Home page
+Route::get('/bicycles', [HomeController::class, 'homeAndProduct']); // Product page
 
 
+Route::get('/contact', [ContactController::class, 'contact']); // Contact page
 
-
-Route::get('/contact', function () {
-
-    return view('pages.contact');
-});
+Route::get('/need_a_bike_repair', [ContactController::class, 'bikeRepair']); // Need a Bike repair? page
 
 
 Route::get('/cart', function () {
@@ -37,8 +32,4 @@ Route::get('/cart', function () {
 });
 
 
-Route::get('/need_a_bike_repair', function () {
 
-    return view('pages.need_a_bike_repair');
-    
-});
