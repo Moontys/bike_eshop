@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,31 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+
+Route::get('/', [HomeController::class, 'home_product']);   // Home page
+
+
+Route::get('/bicycles', [HomeController::class, 'home_product']); // Product page
+
+
+
+
+Route::get('/contact', function () {
+
+    return view('pages.contact');
+});
+
+
+Route::get('/cart', function () {
+
+    return view('pages.cart');
+
+});
+
+
+Route::get('/need_a_bike_repair', function () {
+
+    return view('pages.need_a_bike_repair');
+    
 });
