@@ -14,4 +14,11 @@ class HomeController extends Controller
 
         return view('pages.index');
     }
+
+
+    
+    public function allBicycles()  {
+
+        return view('pages.all_bicycles');
+    }
 }

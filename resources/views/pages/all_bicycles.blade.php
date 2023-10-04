@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('title')
-    Home
+    All Bicycles for basment!!
 @endsection
 
 @section('content')
     <div class="jumbotron">
-        <h1>bicycles.blade.php</h1>
+        <h1>all_bicycles.blade.php</h1>
     </div>
 @endsection
