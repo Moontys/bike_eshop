@@ -26,14 +26,14 @@ Route::get('/all_bicycles', [HomeController::class, 'allBicycles']);    // Produ
 
 
 
-Route::get('/contact', [ContactController::class, 'contact']); // Contact page
+Route::get('/contact', [ContactController::class, 'contact']);  // Contact page
 
-Route::get('/need_a_bike_repair', [ContactController::class, 'bikeRepair']); // Need a Bike repair? page
-
-
+Route::get('/need_a_bike_repair', [ContactController::class, 'bikeRepair']);    // Contac page for bicycle repair
 
 
-Route::get('/cart', [CartController::class, 'cart']);
+
+
+Route::get('/cart', [CartController::class, 'cart']);   // Cart page
 
 
 
