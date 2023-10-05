@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Models\Bicycle;
 
 
 
@@ -10,13 +12,25 @@ class HomeController extends Controller
 
 
 {
-    public function homeAndProduct()  {
+    public function homePageAndTopBicycles()  {
 
-        return view('pages.index');
+        $products = Bicycle::all();
+
+        return view('pages.index')->with('products', $products);
     }
 
 
-    
+
+    public function displayBicycle($id)    {
+
+        $product = DB::table('bicycles')->where('id', $id)->first();
+
+        return view('pages.bicycle')->with('product', $product);    // Daug klausimų!!!!!!!!!!
+    }
+
+
+
+
     public function allBicycles()  {
 
         return view('pages.all_bicycles');
