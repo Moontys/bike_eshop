@@ -16,18 +16,18 @@ class ProductController extends Controller
 
 {
 
-    public function addBicycle()    {
+    public function addProduct()    {
 
-        return view('pages.add_bicycle');
+        return view('pages.add_product');
     }
 
 
-    public function saveAddedBicycle(Request $request)   {
+    public function saveAddedProduct(Request $request)   {
 
         $product = new Bicycle();
-        $product->bicycle_brand = $request->product_brand;
-        $product->bicycle_price = $request->product_price;
-        $product->bicycle_description = $request->product_description;
+        $product->bicycle_brand = $request->input('product_brand');
+        $product->bicycle_price = $request->input('product_price');
+        $product->bicycle_description = $request->input('product_description');
         $product->save();
 
         Session::put('success', 'The Product Has Been Added Successfully!');

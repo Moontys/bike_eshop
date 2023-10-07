@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthlikefornowController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
@@ -19,15 +20,16 @@ Route::get('/', [HomeController::class, 'homePageAndTopBicycles']); // Home page
 
 Route::get('/bicycles', [HomeController::class, 'homePageAndTopBicycles']); // Product page displaying all categories, each featuring it's most popular bicycle based on views.
 
-Route::get('/all_bicycles', [HomeController::class, 'allBicycles']);    // Product page displaying all categories and their respective bicycles.
+Route::get('/all-bicycles', [HomeController::class, 'allBicycles']);    // Product page displaying all categories and their respective bicycles.
 
 Route::get('/bicycle/{id}', [HomeController::class, 'displayBicycle']); // Page displaying the selected bicycle's details
 
 
 
-Route::get('/add-product', [ProductController::class, 'addBicycle']);
 
-Route::post('/save-product', [ProductController::class, 'saveAddedBicycle']);
+Route::get('/add-product', [ProductController::class, 'addProduct']);
+
+Route::post('/save-product', [ProductController::class, 'saveAddedProduct']);
 
 
 
@@ -41,6 +43,14 @@ Route::get('/need_a_bike_repair', [ContactController::class, 'bikeRepair']);    
 
 
 Route::get('/cart', [CartController::class, 'cart']);   // Cart page
+
+
+
+
+
+
+
+Route::get('/admin-like-for-now', [AuthlikefornowController::class, 'adminLikeForNow']);
 
 
 

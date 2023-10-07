@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="jumbotron">
-        <h1>index.blade.php</h1>
+        <h1>admin_like_for_now_index.blade.php</h1>
 
         @foreach ($products as $product)
             <div class="well">
@@ -16,10 +16,6 @@
         @endforeach
 
     </div>
-
-    <br><br><br><br><br><br>
-
-    <h3><a href="{{URL::to('/all-bicycles')}}">ALL bicycles in the basment</a></h3>
 
     <br><br><br><br><br><br>
 
