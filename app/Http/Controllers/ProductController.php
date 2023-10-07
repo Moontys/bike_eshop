@@ -28,14 +28,11 @@ class ProductController extends Controller
         $product->bicycle_brand = $request->product_brand;
         $product->bicycle_price = $request->product_price;
         $product->bicycle_description = $request->product_description;
-
         $product->save();
 
         Session::put('success', 'The Product Has Been Added Successfully!');
 
         return redirect('/add-product');
-
-
     }
 
 
