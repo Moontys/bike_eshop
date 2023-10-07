@@ -23,7 +23,7 @@ class HomeController extends Controller
 
     public function displayBicycle($id)    {
 
-        $product = DB::table('bicycles')->where('id', $id)->first();
+        $product = Bicycle::find($id);
 
         return view('pages.bicycle')->with('product', $product);    // Daug klausimų!!!!!!!!!!
     }

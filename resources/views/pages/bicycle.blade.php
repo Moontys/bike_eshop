@@ -8,8 +8,10 @@
     <div class="jumbotron">
         <h1>bicycle.blade.php</h1>
             <div class="well">
-                <h1><a href="/bicycle/{{$product->id}}">{{$product->bicycle_brand}}</a></h1>
-                <h1>{{$product->bicycle_price}}</h1>
+                <h1>{{$product->bicycle_brand}}</h1>
+                <hr>
+                <h2>{{$product->bicycle_price}}</h2>
+                <hr>
                 <h3>{{$product->bicycle_description}}</h3>
                 <hr>
                 <h5>{{$product->created_at}}</h5>
