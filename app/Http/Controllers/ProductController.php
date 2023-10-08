@@ -15,7 +15,6 @@ class ProductController extends Controller
 
 
 {
-
     public function displayProduct($id)    {
 
         $product = Bicycle::find($id);
@@ -24,14 +23,10 @@ class ProductController extends Controller
     }
 
 
-
-
     public function addProduct()    {
 
         return view('pages.add_product');
     }
-
-
 
 
     public function saveAddedProduct(Request $request)   {
@@ -48,8 +43,6 @@ class ProductController extends Controller
     }
 
 
-
-
     public function editProduct($id)    {
 
         $product = Bicycle::find($id);
@@ -57,8 +50,6 @@ class ProductController extends Controller
         return view('pages.edit_product')->with('product', $product);
     }
 
-
-    
 
     public function updateEditedProduct(Request $request)   { // Alieliaus klausti del id.. Id hidden: "edit_product.blade.php" 
 
@@ -74,5 +65,15 @@ class ProductController extends Controller
     }
 
 
+    public function deleteProduct($id)  {
 
+        $product = Bicycle::find($id);
+        $product->delete();
+
+        Session::put('success', 'The Product Has Been Deleted Successfully!');
+
+        return redirect('/admin-like-for-now');
+    }
+
+    
 }

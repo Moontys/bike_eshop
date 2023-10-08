@@ -4,7 +4,16 @@
     Admin like For Now INDEX
 @endsection
 
+
 @section('content')
+
+    @if(Session::has('success'))
+        <div class="alert alert-success">
+            {{Session::get('success')}}
+            {{Session::put('success', null)}}
+        </div>
+    @endif
+
     <div class="jumbotron">
         <h1>admin_like_for_now_index.blade.php</h1>
 

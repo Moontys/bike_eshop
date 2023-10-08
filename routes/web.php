@@ -42,7 +42,7 @@ Route::get('admin-like-for-now/edit-product/{id}', [ProductController::class, 'e
 Route::post('admin-like-for-now/update-product', [ProductController::class, 'updateEditedProduct']);
 
 
-Route::get('/admin-like-for-now/delete-product', [ProductController::class, 'deleteProduct']);
+Route::get('/admin-like-for-now/delete-product/{id}', [ProductController::class, 'deleteProduct']);
 
 
 

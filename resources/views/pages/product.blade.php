@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+
     <div class="jumbotron">
         <h1>product.blade.php</h1>
             <div class="well">
@@ -21,3 +22,5 @@
             </div>
     </div>
 @endsection
+
+
