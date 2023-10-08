@@ -21,4 +21,8 @@ class AuthlikefornowController extends Controller
 
         return view('pages.admin_like_for_now_index')->with('products', $products);
     }
+
+
+
+
 }

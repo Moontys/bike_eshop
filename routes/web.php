@@ -27,10 +27,22 @@ Route::get('/bicycle/{id}', [HomeController::class, 'displayBicycle']); // Page 
 
 
 
-Route::get('/add-product', [ProductController::class, 'addProduct']);
 
-Route::post('/save-product', [ProductController::class, 'saveAddedProduct']);
 
+Route::get('admin-like-for-now/product/{id}', [ProductController::class, 'displayProduct']);
+
+
+Route::get('admin-like-for-now/add-product', [ProductController::class, 'addProduct']);
+
+Route::post('admin-like-for-now/save-product', [ProductController::class, 'saveAddedProduct']);
+
+
+Route::get('admin-like-for-now/edit-product/{id}', [ProductController::class, 'editProduct']);
+
+Route::post('admin-like-for-now/update-product', [ProductController::class, 'updateEditedProduct']);
+
+
+Route::get('/admin-like-for-now/delete-product', [ProductController::class, 'deleteProduct']);
 
 
 
