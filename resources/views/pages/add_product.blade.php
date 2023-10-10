@@ -13,7 +13,7 @@
         </div>
     @endif
 
-    {!!Form::open(['action' => 'App\Http\Controllers\ProductController@saveAddedProduct', 'method' => 'POST', 'class' => 'form-horizontal'])!!}
+    {!!Form::open(['action' => 'App\Http\Controllers\ProductController@saveAddedProduct', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'class' => 'form-horizontal'])!!}
 
     {{csrf_field()}}
 
@@ -23,7 +23,12 @@
         </div>
         <div class="form-group">
             {{ Form::label('', 'Product Price') }}
-            {{ Form::number('product_price', '', ['placeholder' => 'Enter Bicycle\'s Price', 'class' => 'form-control']) }}
+            {{ Form::number('product_price', '', ['class' => 'form-control']) }}
+        </div>
+        <div class="form-group">
+
+            {{ Form::file('product_image', ['placeholder' => 'Add Bicycle\'s Image', 'class' => 'form-control']) }}
+
         </div>
         <div class="form-group">
             {{ Form::label('', 'Product Description') }}

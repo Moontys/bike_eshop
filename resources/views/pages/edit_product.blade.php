@@ -19,18 +19,18 @@
     {{csrf_field()}}
 
         <div class="form-group">
-            {{ Form::hidden('id', $product->id) }}  {{--ar tas susiijas su edit.blade.php (22 eilute)?--}}
+            {{ Form::hidden('id', $bicycleData->id) }}  {{--Hidden input field allows the server to identify which product is being edited or updated when the form is submitted--}}
             
             {{ Form::label('', 'Product Brand') }}
-            {{ Form::text('product_brand', $product->bicycle_brand, ['placeholder' => 'Enter Bicycle\'s Brand', 'class' => 'form-control']) }}
+            {{ Form::text('product_brand', $bicycleData->bicycle_brand, ['placeholder' => 'Enter Bicycle\'s Brand', 'class' => 'form-control']) }}
         </div>
         <div class="form-group">
             {{ Form::label('', 'Product Price') }}
-            {{ Form::number('product_price', $product->bicycle_price, ['placeholder' => 'Enter Bicycle\'s Price', 'class' => 'form-control']) }}
+            {{ Form::number('product_price', $bicycleData->bicycle_price, ['placeholder' => 'Enter Bicycle\'s Price', 'class' => 'form-control']) }}
         </div>
         <div class="form-group">
             {{ Form::label('', 'Product Description') }}
-            {{ Form::textarea('product_description', $product->bicycle_description, ['placeholder' => 'Enter Bicycle\'s Description', 'class' => 'form-control']) }}
+            {{ Form::textarea('product_description', $bicycleData->bicycle_description, ['placeholder' => 'Enter Bicycle\'s Description', 'class' => 'form-control']) }}
         </div>
 
         {{Form::submit('Edit Product', ['class' => 'btn btn-primary'])}}
@@ -38,3 +38,5 @@
     {!!Form::close()!!}
 
 @endsection
+
+
