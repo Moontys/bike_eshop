@@ -1,4 +1,4 @@
-@extends('layouts.app')
+{{-- @extends('layouts.app')
 
 @section('title')
     CONTACT
@@ -8,4 +8,7 @@
     <div class="jumbotron">
         <h1>contact.blade.php</h1>
     </div>
-@endsection
+@endsection --}}
+
+
+<h1>contact.blade.php</h1>

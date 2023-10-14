@@ -36,31 +36,44 @@ class ProductController extends Controller
         $product = new Bicycle();
         $product->bicycle_brand = $request->input('product_brand');
         $product->bicycle_price = $request->input('product_price');
+        
+        $product->bicycle_image = $request->input('product_image');
         $product->bicycle_description = $request->input('product_description');
         $product->save();
 
 
         $fileNameWithExt = $request->file('product_image')->getClientOriginalName();
 
-        print('Original Name of the Image with Extension - ' . $fileNameWithExt);
+        // print('Original Name of the Image with Extension - ' . $fileNameWithExt);
 
-        echo '<pre></pre>';
+        // echo '<pre></pre>';
+
 
         $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
 
-        print('Original Name of the Image  - ' . $fileName);
+        // print('Original Name of the Image without Extention - ' . $fileName);
 
-        echo '<pre></pre>';
+        // echo '<pre></pre>';
+
 
         $ext = $request->file('product_image')->getClientOriginalExtension();
 
-        print('Extention of the Image - ' . $ext);
+        // print('Extention of the Image - ' . $ext);
+
+        // echo '<pre></pre>';
+
+
+        $fileNameToStore = $fileName . '_' . time() . '.' . $ext;
+
+        // echo '<pre></pre>';
+
+        // print('File Name for Storing - ' . $fileNameToStore);
 
         
 
-        // Session::put('success', 'The Product Has Been Added Successfully!');
+        Session::put('success', 'The Product Has Been Added Successfully!');
 
-        // return redirect('/admin-like-for-now/add-product');
+        return redirect('/admin-like-for-now/add-product');
     }
 
 

@@ -26,7 +26,8 @@
             {{ Form::number('product_price', '', ['class' => 'form-control']) }}
         </div>
         <div class="form-group">
-
+            
+            {{ Form::label('', 'Product Image') }}
             {{ Form::file('product_image', ['placeholder' => 'Add Bicycle\'s Image', 'class' => 'form-control']) }}
 
         </div>

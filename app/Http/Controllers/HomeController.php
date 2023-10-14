@@ -12,6 +12,9 @@ class HomeController extends Controller
 
 
 {
+
+
+
     public function homePageAndTopBicycles()  {
 
         $products = Bicycle::all();
@@ -36,3 +39,5 @@ class HomeController extends Controller
         return view('pages.all_bicycles');
     }
 }
+
+

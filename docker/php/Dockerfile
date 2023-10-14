@@ -11,6 +11,12 @@ RUN apt-get install -y \
         nano \
   && docker-php-ext-install zip
 
+RUN curl -sL https://deb.nodesource.com/setup_13.x | bash -
+RUN apt-get update && apt-get install -y \
+    nodejs
+
+
+
 COPY --from=composer:2.5 /usr/bin/composer /usr/bin/composer
 
 RUN groupadd -g 1000 www
