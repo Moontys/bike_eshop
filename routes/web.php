@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthlikefornowController;
 use App\Http\Controllers\CartController;
@@ -23,6 +24,27 @@ Route::get('/checkout', [ClientController::class, 'checkout']);
 Route::get('/login', [ClientController::class, 'login']);
 
 Route::get('/signup', [ClientController::class, 'signup']);
+
+
+
+
+
+Route::get('/admin', [AdminController::class, 'admin']);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
