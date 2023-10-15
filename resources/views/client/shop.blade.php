@@ -1,7 +1,14 @@
 @extends('client_layout.client')
 
-@section('content')
 
+@section('title')
+
+    Shop
+
+@endsection
+
+
+@section('content')
 <!-- start content -->
 	
     <div class="hero-wrap hero-bread" style="background-image: url('frontend/images/bg_1.jpg');">
@@ -389,7 +396,6 @@
         </div>
     	</div>
     </section>
-
 <!-- end content -->
 
 @endsection

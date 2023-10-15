@@ -1,6 +1,14 @@
+@extends('client_layout.client')
 
-    <!-- END nav -->
 
+@section('title')
+
+    Check Out
+
+@endsection
+
+
+@section('content')
     <!-- start content -->
 	
 	<div class="hero-wrap hero-bread" style="background-image: url('frontend/images/bg_1.jpg');">
@@ -102,40 +110,46 @@
     </section> <!-- .section -->
 
     <!-- end content  -->
+@endsection
 
-  <script>
-		$(document).ready(function(){
 
-		var quantitiy=0;
-		   $('.quantity-right-plus').click(function(e){
-		        
-		        // Stop acting like a button
-		        e.preventDefault();
-		        // Get the field name
-		        var quantity = parseInt($('#quantity').val());
-		        
-		        // If is not undefined
-		            
-		            $('#quantity').val(quantity + 1);
+@section('scripts')
 
-		          
-		            // Increment
-		        
-		    });
+<script>
+	$(document).ready(function(){
 
-		     $('.quantity-left-minus').click(function(e){
-		        // Stop acting like a button
-		        e.preventDefault();
-		        // Get the field name
-		        var quantity = parseInt($('#quantity').val());
-		        
-		        // If is not undefined
-		      
-		            // Increment
-		            if(quantity>0){
-		            $('#quantity').val(quantity - 1);
-		            }
-		    });
-		    
+	var quantitiy=0;
+	   $('.quantity-right-plus').click(function(e){
+			
+			// Stop acting like a button
+			e.preventDefault();
+			// Get the field name
+			var quantity = parseInt($('#quantity').val());
+			
+			// If is not undefined
+				
+				$('#quantity').val(quantity + 1);
+
+			  
+				// Increment
+			
 		});
-	</script>
+
+		 $('.quantity-left-minus').click(function(e){
+			// Stop acting like a button
+			e.preventDefault();
+			// Get the field name
+			var quantity = parseInt($('#quantity').val());
+			
+			// If is not undefined
+		  
+				// Increment
+				if(quantity>0){
+				$('#quantity').val(quantity - 1);
+				}
+		});
+		
+	});
+</script>
+
+@endsection

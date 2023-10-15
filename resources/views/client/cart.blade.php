@@ -1,5 +1,13 @@
 @extends('client_layout.client')
 
+
+@section('title')
+
+    Cart
+
+@endsection
+
+
 @section('content')
 
 	<!-- start content -->
@@ -137,7 +145,7 @@
                               <span>$17.60</span>
                           </p>
                       </div>
-                      <p><a href="checkout.html" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
+                      <p><a href="{{url('/checkout')}}" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
                   </div>
               </div>
           </div>
@@ -149,40 +157,44 @@
 @endsection
 
 
-  <script>
-		$(document).ready(function(){
+@section('scripts')
 
-		var quantitiy=0;
-		   $('.quantity-right-plus').click(function(e){
-		        
-		        // Stop acting like a button
-		        e.preventDefault();
-		        // Get the field name
-		        var quantity = parseInt($('#quantity').val());
-		        
-		        // If is not undefined
-		            
-		            $('#quantity').val(quantity + 1);
+<script>
+  $(document).ready(function(){
 
-		          
-		            // Increment
-		        
-		    });
+  var quantitiy=0;
+     $('.quantity-right-plus').click(function(e){
+          
+          // Stop acting like a button
+          e.preventDefault();
+          // Get the field name
+          var quantity = parseInt($('#quantity').val());
+          
+          // If is not undefined
+              
+              $('#quantity').val(quantity + 1);
 
-		     $('.quantity-left-minus').click(function(e){
-		        // Stop acting like a button
-		        e.preventDefault();
-		        // Get the field name
-		        var quantity = parseInt($('#quantity').val());
-		        
-		        // If is not undefined
-		      
-		            // Increment
-		            if(quantity>0){
-		            $('#quantity').val(quantity - 1);
-		            }
-		    });
-		    
-		});
-	</script>
+            
+              // Increment
+          
+      });
+
+       $('.quantity-left-minus').click(function(e){
+          // Stop acting like a button
+          e.preventDefault();
+          // Get the field name
+          var quantity = parseInt($('#quantity').val());
+          
+          // If is not undefined
+        
+              // Increment
+              if(quantity>0){
+              $('#quantity').val(quantity - 1);
+              }
+      });
+      
+  });
+</script>
+
+@endsection
  

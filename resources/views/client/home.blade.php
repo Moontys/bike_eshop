@@ -1,7 +1,14 @@
 @extends('client_layout.client')
 
-@section('content')
 
+@section('title')
+
+    Home
+
+@endsection
+
+
+@section('content')
 <!-- start content -->
 
 <section id="home-section" class="hero">
@@ -510,7 +517,5 @@
   </div>
 </section>
 
-
 <!-- end content -->
-
 @endsection

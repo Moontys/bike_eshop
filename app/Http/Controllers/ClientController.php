@@ -12,7 +12,6 @@ class ClientController extends Controller
         return view('client.home');
     }
 
-
     public function shop()
     {
         return view('client.shop');
@@ -27,5 +26,16 @@ class ClientController extends Controller
     {
         return view('client.checkout');
     }
+
+    public function login()
+    {
+        return view('client.login');
+    }
+
+    public function signup()
+    {
+        return view('client.signup');
+    }
+
 
 }
