@@ -13,6 +13,10 @@
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Tempusdominus Bootstrap 4 -->
   <link rel="stylesheet" href="backend/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+
+  <!-- external CSS link from the 'all_categories/sliders/products.blade.php' template -->
+  @yield('external CSS link')
+
   <!-- iCheck -->
   <link rel="stylesheet" href="backend/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- JQVMap -->
@@ -374,5 +378,9 @@
 <script src="backend/dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="backend/dist/js/demo.js"></script>
+
+@yield('scripts')
+
+
 </body>
 </html>
