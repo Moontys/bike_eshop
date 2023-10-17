@@ -9,6 +9,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SliderController;
 
 
@@ -52,11 +53,12 @@ Route::get('/all-sliders', [SliderController::class, 'allSliders']);
 
 Route::get('/add-product', [ProductController::class, 'addProduct']);
 
+Route::get('/all-products', [ProductController::class, 'allProducts']);
 
 
 
 
-
+Route::get('all-orders', [OrderController::class, 'allOrders']);
 
 
 

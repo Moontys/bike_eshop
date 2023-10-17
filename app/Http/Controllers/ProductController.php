@@ -19,6 +19,9 @@ class ProductController extends Controller
         return view('admin.add_product');
     }
         
-
+    public function allProducts()
+    {
+        return view('admin.all_products');
+    }
     
 }
