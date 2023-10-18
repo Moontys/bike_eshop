@@ -13,12 +13,7 @@
     <section class="content-header">
         <div class="container-fluid">
 
-        @if (Session::has('status'))
-            <div class="alert alert-success">
-                {{ Session::get('status') }}
-            </div>
-        @endif
-          
+            
         @if (count($errors) > 0)
             <div class="alert alert-danger">
                 @foreach ($errors->all() as $error)
@@ -50,23 +45,28 @@
                     <!-- jquery validation -->
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Add Category</h3>
+                            <h3 class="card-title">Edit Category</h3>
                         </div>
 
+                        {!! Form::open(['action' => 'App\Http\Controllers\CategoryController@updateEditedCategory', 'method' => 'POST']) !!}
 
-                        {!! Form::open(['action' => 'App\Http\Controllers\CategoryController@saveAddedCategory', 'method' => 'POST']) !!}
                         {{ csrf_field() }}
 
                         <div class="card-body">
                             <div class="form-group">
+
+                                {{ Form::hidden('id', $category->id) }}
+
                                 {{ Form::label('', 'Category name', ['for' => 'exampleInputEmail1']) }}
 
-                                {{ Form::text('category_name', '', ['class' => 'form-control', 'id' => 'exampleInputEmail1', 'placeholder' => 'Enter category']) }}
+                                {{ Form::text('category_name', $category->category_name, ['class' => 'form-control', 'id' => 'exampleInputEmail1', 'placeholder' => 'Enter category']) }}
                             </div>
                         </div>
 
                         <div class="card-footer">
-                            {{ Form::submit('Save', ['class' => 'btn btn-primary']) }}
+
+                            {{ Form::submit('Update', ['class' => 'btn btn-primary']) }}
+
                         </div>
 
                         {!! Form::close() !!}
@@ -89,12 +89,12 @@
 
 @section('scripts')
     <!-- jquery-validation -->
-    <script src="backend/plugins/jquery-validation/jquery.validate.min.js"></script>
-    <script src="backend/plugins/jquery-validation/additional-methods.min.js"></script>
+    <script src="{{ asset('backend/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('backend/plugins/jquery-validation/additional-methods.min.js') }}"></script>
     <!-- AdminLTE App -->
-    <script src="backend/dist/js/adminlte.min.js"></script>
+    <script src="{{ asset('backend/dist/js/adminlte.min.js') }}"></script>
 
-    <script src="../../dist/js/demo.js"></script>
+    {{-- <script src="{{ asset('backend/dist/js/demo.js') }}"></script> --}}
     <script>
         $(function () {
             $.validator.setDefaults({

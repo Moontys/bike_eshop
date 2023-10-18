@@ -10,6 +10,15 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <div class="container-fluid">
+
+
+      @if (Session::has('status'))
+        <div class="alert alert-success">
+            {{ Session::get('status') }}
+        </div>
+      @endif
+
+
       <div class="row mb-2">
         <div class="col-sm-6">
           <h1>Categories</h1>
@@ -45,19 +54,20 @@
                 </thead>
                 <tbody>
                   
-                  @foreach ($categories as $category)
+                  @foreach ($allCategoriesFormTable as $categoryFormTable)
 
                   <tr>
                     <td>{{ $increment }}</td>
-                    <td>{{$category->category_name}}</td>
+                    <td>{{ $categoryFormTable->category_name }}</td>
                     
                     <td>
-                      <a href="#" class="btn btn-primary"><i class="nav-icon fas fa-edit"></i></a>
-                      <a href="#" id="delete" class="btn btn-danger" ><i class="nav-icon fas fa-trash"></i></a>
+                      <a href="{{ url('/edit-category/' . $categoryFormTable->id) }}" class="btn btn-primary"><i class="nav-icon fas fa-edit"></i></a>
+                      <a href="{{ url('/delete-category/' . $categoryFormTable->id) }}" id="delete" class="btn btn-danger" ><i class="nav-icon fas fa-trash"></i></a>
                     </td>
                   </tr>
 
                   {{ Form::hidden('', $increment = $increment + 1) }}
+
                   @endforeach 
 
                 </tbody>
@@ -91,7 +101,7 @@
 @section('external CSS link')
 
   <!-- external CSS link for the 'admin.blade.php' template -->
-  <link rel="stylesheet" href="backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="{{ asset('backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
 
 @endsection
 

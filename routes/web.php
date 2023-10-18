@@ -43,6 +43,11 @@ Route::get('/add-category', [CategoryController::class, 'addCategory']);
 
 Route::post('/save-category', [CategoryController::class, 'saveAddedCategory']);
 
+Route::get('/edit-category/{id}', [CategoryController::class, 'editCategory']);
+
+Route::post('/update-category', [CategoryController::class, 'updateEditedCategory']);
+
+Route::get('/delete-category/{id}', [CategoryController::class, 'deleteCategory']);
 
 
 
