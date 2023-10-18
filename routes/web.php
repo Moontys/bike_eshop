@@ -37,9 +37,13 @@ Route::get('/admin', [AdminController::class, 'admin']);
 
 
 
+Route::get('/all-categories', [CategoryController::class, 'allCategories']);
+
 Route::get('/add-category', [CategoryController::class, 'addCategory']);
 
-Route::get('/all-categories', [CategoryController::class, 'allCategories']);
+Route::post('/save-category', [CategoryController::class, 'saveAddedCategory']);
+
+
 
 
 
