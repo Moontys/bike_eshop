@@ -60,9 +60,12 @@ Route::get('/all-sliders', [SliderController::class, 'allSliders']);
 
 
 
-Route::get('/add-product', [ProductController::class, 'addProduct']);
 
 Route::get('/all-products', [ProductController::class, 'allProducts']);
+
+Route::get('/add-product', [ProductController::class, 'addProduct']);
+
+Route::post('/save-product', [ProductController::class, 'saveAddedProduct']);
 
 
 

@@ -1,9 +1,6 @@
 @extends('admin_layout.admin')
 
-
-
 @section('content')
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -36,54 +33,45 @@
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
-                  <tr>
-                    <th>Num.</th>
-                    <th>Picture</th>
-                    <th>Product Name</th>
-                    <th>Product Category</th>
-                    <th>Product Price</th>
-                    <th>Actions</th>
-                  </tr>
+                    <tr>
+                      <th>Num.</th>
+                      <th>Picture</th>
+                      <th>Product Name</th>
+                      <th>Product Category</th>
+                      <th>Product Price</th>
+                      <th>Actions</th>
+                    </tr>
                   </thead>
                   <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>
-                        <img src="backend/dist/img/user2-160x160.jpg" style="height : 50px; width : 50px" class="img-circle elevation-2" alt="User Image">
-                    </td>
-                    <td>Win 95+</td>
-                    <td> 4</td>
-                    <td>5</td>
-                    <td>
-                      <a href="#" class="btn btn-success">Unactivate</a>
-                      <a href="#" class="btn btn-primary"><i class="nav-icon fas fa-edit"></i></a>
-                      <a href="#" id="delete" class="btn btn-danger" ><i class="nav-icon fas fa-trash"></i></a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>
-                      <img src="backend/dist/img/user2-160x160.jpg" style="height : 50px; width : 50px" class="img-circle elevation-2" alt="User Image">
-                    </td>
-                    <td>Win 95+</td>
-                    <td>5</td>
-                    <td>5</td>
-                    <td>
-                      <a href="#" class="btn btn-warning">Activate</a>
-                      <a href="#" class="btn btn-primary"><i class="nav-icon fas fa-edit"></i></a>
-                      <a href="#" id="delete" class="btn btn-danger" ><i class="nav-icon fas fa-trash"></i></a>
-                    </td>
-                  </tr>
+
+                      @foreach ($allProductsFromTable as $productFromTable)
+                      <tr>
+                        <td>1</td>
+                        <td>
+                          
+                          <img src="storage/product_images/{{ $productFromTable->product_image }}" style="height:50px;width:50px" class="img-circle elevation-2" alt="User Image">
+                        </td>
+                        <td>{{ $productFromTable->product_name }}</td>
+                        <td>{{ $productFromTable->product_category }}</td>
+                        <td>{{ $productFromTable->product_price . ' €' }}</td>
+                        <td>
+                          <a href="#" class="btn btn-success">Unactivate</a>
+                          <a href="#" class="btn btn-primary"><i class="nav-icon fas fa-edit"></i></a>
+                          <a href="#" id="delete" class="btn btn-danger"><i class="nav-icon fas fa-trash"></i></a>
+                        </td>
+                      </tr>
+                      @endforeach
+                    
                   </tbody>
                   <tfoot>
-                  <tr>
-                    <th>Num.</th>
-                    <th>Picture</th>
-                    <th>Product Name</th>
-                    <th>Product Category</th>
-                    <th>Product Price</th>
-                    <th>Actions</th>
-                  </tr>
+                    <tr>
+                      <th>Num.</th>
+                      <th>Picture</th>
+                      <th>Product Name</th>
+                      <th>Product Category</th>
+                      <th>Product Price</th>
+                      <th>Actions</th>
+                    </tr>
                   </tfoot>
                 </table>
               </div>
@@ -100,22 +88,14 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
 @endsection
-
-
 
 @section('external CSS link')
-
   <!-- external CSS link for the 'admin.blade.php' template -->
   <link rel="stylesheet" href="backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-
 @endsection
 
-
-
 @section('scripts')
-
   <!-- DataTables -->
   <script src="backend/plugins/datatables/jquery.dataTables.min.js"></script>
   <script src="backend/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -123,18 +103,17 @@
   <script src="backend/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
   <!-- AdminLTE App -->
   <script src="backend/dist/js/adminlte.min.js"></script>
-  <!-- AdminLTE for demo purposes -->
   <script src="backend/dist/js/bootbox.min.js"></script>
 
   <!-- page script -->
   <script>
-    $(document).on("click", "#delete", function(e){
-    e.preventDefault();
-    var link = $(this).attr("href");
-    bootbox.confirm("Do you really want to delete this element ?", function(confirmed){
-      if (confirmed){
+    $(document).on("click", "#delete", function(e) {
+      e.preventDefault();
+      var link = $(this).attr("href");
+      bootbox.confirm("Do you really want to delete this element?", function(confirmed) {
+        if (confirmed) {
           window.location.href = link;
-        };
+        }
       });
     });
   </script>
@@ -156,5 +135,4 @@
       });
     });
   </script>
-
 @endsection
