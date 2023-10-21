@@ -1,6 +1,9 @@
 @extends('admin_layout.admin')
 
 @section('content')
+
+{{ Form::hidden('', $increment = 1) }}
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -46,9 +49,8 @@
 
                       @foreach ($allProductsFromTable as $productFromTable)
                       <tr>
-                        <td>1</td>
+                        <td>{{ $increment }}</td>
                         <td>
-                          
                           <img src="storage/product_images/{{ $productFromTable->product_image }}" style="height:50px;width:50px" class="img-circle elevation-2" alt="User Image">
                         </td>
                         <td>{{ $productFromTable->product_name }}</td>
@@ -56,10 +58,11 @@
                         <td>{{ $productFromTable->product_price . ' €' }}</td>
                         <td>
                           <a href="#" class="btn btn-success">Unactivate</a>
-                          <a href="#" class="btn btn-primary"><i class="nav-icon fas fa-edit"></i></a>
-                          <a href="#" id="delete" class="btn btn-danger"><i class="nav-icon fas fa-trash"></i></a>
+                          <a href="{{ url('/edit-product/' . $productFromTable->id) }}" class="btn btn-primary"><i class="nav-icon fas fa-edit"></i></a>
+                          <a href="{{ url('/delete-product/' . $productFromTable->id) }}" id="delete" class="btn btn-danger"><i class="nav-icon fas fa-trash"></i></a>
                         </td>
                       </tr>
+                      {{ Form::hidden('', $increment = $increment + 1) }}
                       @endforeach
                     
                   </tbody>

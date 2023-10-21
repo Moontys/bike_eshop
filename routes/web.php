@@ -67,6 +67,10 @@ Route::get('/add-product', [ProductController::class, 'addProduct']);
 
 Route::post('/save-product', [ProductController::class, 'saveAddedProduct']);
 
+Route::get('/edit-product/{id}', [ProductController::class, 'editProduct']);
+
+Route::post('/update-product', [ProductController::class, 'updateEditedProduct']);
+
 
 
 
