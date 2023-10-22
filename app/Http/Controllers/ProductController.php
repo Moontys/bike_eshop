@@ -7,9 +7,7 @@ use App\Models\Category;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-
-
-
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 
@@ -18,7 +16,7 @@ class ProductController extends Controller
     public function allProducts()
     {
         $products = Product::All();
-
+        // $products = Product::All()->where('product_status', 1);
         return view('admin.all_products')->with('allProductsFromTable', $products);
     }
 
@@ -54,7 +52,7 @@ class ProductController extends Controller
 
         } else {
 
-            $fileNameToStore = 'no_image.jpg';
+            $fileNameToStore = 'no_image.png';
 
         }
     
@@ -63,6 +61,7 @@ class ProductController extends Controller
         $product->product_price = $request->input('product_price');
         $product->product_category = $request->input('product_category');
         $product->product_image = $fileNameToStore;
+        $product->product_status = 1;
     
         $product->save();
     
@@ -91,28 +90,72 @@ class ProductController extends Controller
             'product_image' => 'image|nullable|max:1999'
         ]);
 
-        if ($request->hasFile('product_image')) {
+        $product = Product::find($request->input('id'));
 
+        $product->product_name = $request->input('product_name');
+        $product->product_price = $request->input('product_price');
+        $product->product_category = $request->input('product_category');
+
+        if ($request->hasFile('product_image'))
+            {
             $fileNameWithExt = $request->file('product_image')->getClientOriginalName();
             $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
             $extension = $request->file('product_image')->getClientOriginalExtension();
             $fileNameToStore = $fileName . '_' . time() . '.' . $extension;
-    
             // Upload image
             $path = $request->file('product_image')->storeAs('public/product_images', $fileNameToStore);
 
+            if ($product->product_image != 'no_image.png')
+            {
+                Storage::delete('public/product_images/' . $product->product_image);
+            }
+
+            $product->product_image = $fileNameToStore;
         }
-
-        $product = new Product();
-        $product->product_name = $request->input('product_name');
-        $product->product_price = $request->input('product_price');
-        $product->product_category = $request->input('product_category');
-    
         $product->update();
-    
-        return back()->with('status', 'The Product "' . $request->input('product_name') . '" Updated Successfully');
 
-
+        return redirect('/all-products')->with('status', 'The Product "' . $request->input('product_name') . '" Updated Successfully');
     }
 
+
+
+    public function deleteProduct($id)
+    {
+        $product = Product::find($id);
+
+        if ($product->product_image != 'no_image.png')
+        {
+            Storage::delete('public/product_images/' . $product->product_image);
+        }
+
+        $product->delete();
+
+        return back()->with('status', 'The Product "' . $product->product_name . '" Deleted Successfully');
+    }
+
+
+    
+    public function activateProduct($id)
+    {
+        $product = Product::find($id);
+
+        $product->product_status = 1;
+
+        $product->update();
+
+        return back()->with('status', 'The Product "' . $product->product_name . '" Activated Successfully');
+    }
+
+
+
+    public function unactivateProduct($id)
+    {
+        $product = Product::find($id);
+
+        $product->product_status = 0;
+
+        $product->update();
+
+        return back()->with('status', 'The Product "' . $product->product_name . '" Unactivated Successfully');
+    }
 }

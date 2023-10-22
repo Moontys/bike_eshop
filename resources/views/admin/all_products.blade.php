@@ -9,6 +9,15 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
+
+
+      @if (Session::has('status'))
+        <div class="alert alert-success">
+            {{ Session::get('status') }}
+        </div>
+      @endif
+
+
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1>Products</h1>
@@ -57,7 +66,13 @@
                         <td>{{ $productFromTable->product_category }}</td>
                         <td>{{ $productFromTable->product_price . ' €' }}</td>
                         <td>
-                          <a href="#" class="btn btn-success">Unactivate</a>
+
+                          @if ($productFromTable->product_status == 1)
+                            <a href="{{ url('/unactivate-product/' . $productFromTable->id) }}" class="btn btn-success">Unactivate</a>
+                          @else
+                            <a href="{{ url('/activate-product/' . $productFromTable->id) }}" class="btn btn-warning">Activate</a>
+                          @endif
+
                           <a href="{{ url('/edit-product/' . $productFromTable->id) }}" class="btn btn-primary"><i class="nav-icon fas fa-edit"></i></a>
                           <a href="{{ url('/delete-product/' . $productFromTable->id) }}" id="delete" class="btn btn-danger"><i class="nav-icon fas fa-trash"></i></a>
                         </td>

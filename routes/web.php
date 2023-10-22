@@ -53,11 +53,11 @@ Route::get('/delete-category/{id}', [CategoryController::class, 'deleteCategory'
 
 
 
-Route::get('/add-slider', [SliderController::class, 'addSlider']);
-
 Route::get('/all-sliders', [SliderController::class, 'allSliders']);
 
+Route::get('/add-slider', [SliderController::class, 'addSlider']);
 
+Route::post('/save-slider', [SliderController::class, 'saveAddedSlider']);
 
 
 
@@ -70,6 +70,12 @@ Route::post('/save-product', [ProductController::class, 'saveAddedProduct']);
 Route::get('/edit-product/{id}', [ProductController::class, 'editProduct']);
 
 Route::post('/update-product', [ProductController::class, 'updateEditedProduct']);
+
+Route::get('/delete-product/{id}', [ProductController::class, 'deleteProduct']);
+
+Route::get('/activate-product/{id}', [ProductController::class, 'activateProduct']);
+
+Route::get('/unactivate-product/{id}', [ProductController::class, 'unactivateProduct']);
 
 
 

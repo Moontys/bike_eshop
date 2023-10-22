@@ -11,11 +11,11 @@
             <div class="container-fluid">
 
 
-                @if (Session::has('status'))
+                {{-- @if (Session::has('status'))
                     <div class="alert alert-success">
                         {{ Session::get('status') }}
                     </div>
-                @endif
+                @endif --}}
 
                 @if (count($errors) > 0)
                     <div class="alert alert-danger">
