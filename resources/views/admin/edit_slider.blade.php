@@ -26,12 +26,6 @@
     <section class="content">
       <div class="container-fluid">
 
-      @if (Session::has('status'))
-        <div class="alert alert-success">
-          {{ Session::get('status') }}
-        </div>
-      @endif
-
       @if (count($errors) > 0)
         <div class="alert alert-danger">
             @foreach ($errors->all() as $error)
@@ -47,22 +41,25 @@
             <!-- jquery validation -->
             <div class="card card-warning">
               <div class="card-header">
-                <h3 class="card-title">Add Slider</h3>
+                <h3 class="card-title">Edit Slider</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              {!! Form::open(['action' => 'App\Http\Controllers\SliderController@saveAddedSlider', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+              {!! Form::open(['action' => 'App\Http\Controllers\SliderController@updateEditedSlider', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
               {{ csrf_field() }}
 
               <div class="card-body">
                   <div class="form-group">
-                      {{ Form::label('inputProductName', 'Slider Description 1') }}
-                      {{ Form::text('slider_description1', '', ['class' => 'form-control', 'placeholder' => 'Enter Description One', 'id' => 'inputProductName']) }}
+
+                    {{ Form::hidden('id', $sliderFromTableById->id) }}
+
+                    {{ Form::label('inputProductName', 'Slider Description 1') }}
+                    {{ Form::text('slider_description1', $sliderFromTableById->slider_description1, ['class' => 'form-control', 'placeholder' => 'Enter Description One', 'id' => 'inputProductName']) }}
                   </div>
 
                   <div class="form-group">
-                      {{ Form::label('inputProductName', 'Slider Description 2') }}
-                      {{ Form::text('slider_description2', '', ['class' => 'form-control', 'placeholder' => 'Enter Description Two', 'id' => 'inputProductName']) }}
+                    {{ Form::label('inputProductName', 'Slider Description 2') }}
+                    {{ Form::text('slider_description2', $sliderFromTableById->slider_description2, ['class' => 'form-control', 'placeholder' => 'Enter Description Two', 'id' => 'inputProductName']) }}
                   </div>
 
                   <div class="form-group">
@@ -79,7 +76,7 @@
                   </div>
 
               <div class="card-footer">
-                  {{ Form::submit('Save', ['class' => 'btn btn-success']) }}
+                  {{ Form::submit('Update', ['class' => 'btn btn-success']) }}
               </div>
               
               {!! Form::close() !!}

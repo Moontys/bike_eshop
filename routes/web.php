@@ -52,12 +52,22 @@ Route::get('/delete-category/{id}', [CategoryController::class, 'deleteCategory'
 
 
 
-
 Route::get('/all-sliders', [SliderController::class, 'allSliders']);
 
 Route::get('/add-slider', [SliderController::class, 'addSlider']);
 
 Route::post('/save-slider', [SliderController::class, 'saveAddedSlider']);
+
+Route::get('/edit-slider/{id}', [SliderController::class, 'editSlider']);
+
+Route::post('/update-slider', [SliderController::class, 'updateEditedSlider']);
+
+Route::get('/delete-slider/{id}', [SliderController::class, 'deleteSlider']);
+
+Route::get('/activate-slider/{id}', [SliderController::class, 'activateSlider']);
+
+Route::get('/unactivate-slider/{id}', [SliderController::class, 'unactivateSlider']);
+
 
 
 

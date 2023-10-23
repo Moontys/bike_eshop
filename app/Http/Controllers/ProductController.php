@@ -6,7 +6,7 @@ use App\Models\Product;
 use App\Models\Category;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
+// use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
@@ -15,9 +15,9 @@ class ProductController extends Controller
 {
     public function allProducts()
     {
-        $products = Product::All();
-        // $products = Product::All()->where('product_status', 1);
-        return view('admin.all_products')->with('allProductsFromTable', $products);
+        $allProducts = Product::All();
+
+        return view('admin.all_products')->with('allProductsFromTable', $allProducts);
     }
 
 
@@ -72,11 +72,11 @@ class ProductController extends Controller
 
     public function editProduct($id)
     {
-        $productFromTable = Product::find($id);
+        $productById = Product::find($id);
 
         $categoryNames = Category::All()->pluck('category_name', 'category_name');
 
-        return view('admin.edit_product')->with('productFromTableById', $productFromTable)->with('allCategoryNamesFromTable', $categoryNames);
+        return view('admin.edit_product')->with('productFromTableById', $productById)->with('allCategoryNamesFromTable', $categoryNames);
     }
 
 

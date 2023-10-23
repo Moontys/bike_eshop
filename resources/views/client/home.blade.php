@@ -13,39 +13,31 @@
 
 <section id="home-section" class="hero">
     <div class="home-slider owl-carousel">
-    <div class="slider-item" style="background-image: url(frontend/images/bg_1.jpg);">
-        <div class="overlay"></div>
-      <div class="container">
-        <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
+    
+        @foreach ($allSlidersFromTableWhereId1 as $sliderFromTableWhwereId1)
+            <div class="slider-item" style="background-image: url(/storage/slider_images/{{ $sliderFromTableWhwereId1->slider_image }});">
 
-          <div class="col-md-12 ftco-animate text-center">
-            <h1 class="mb-2">We serve Fresh Vegestables &amp; Fruits</h1>
-            <h2 class="subheading mb-4">We deliver organic vegetables &amp; fruits</h2>
-            <p><a href="#" class="btn btn-primary">View Details</a></p>
-          </div>
+                <div class="overlay"></div>
 
-        </div>
-      </div>
+                <div class="container">
+                    <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
+
+                        <div class="col-md-12 ftco-animate text-center">
+                            <h1 class="mb-2">We serve Fresh Vegestables &amp; Fruits</h1>
+                            <h2 class="subheading mb-4">We deliver organic vegetables &amp; fruits</h2>
+                            <p><a href="#" class="btn btn-primary">View Details</a></p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        @endforeach
+
     </div>
-
-    <div class="slider-item" style="background-image: url(frontend/images/bg_2.jpg);">
-        <div class="overlay"></div>
-      <div class="container">
-        <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
-
-          <div class="col-sm-12 ftco-animate text-center">
-            <h1 class="mb-2">100% Fresh &amp; Organic Foods</h1>
-            <h2 class="subheading mb-4">We deliver organic vegetables &amp; fruits</h2>
-            <p><a href="#" class="btn btn-primary">View Details</a></p>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </div>
 </section>
 
-<section class="ftco-section">
+
+{{-- <section class="ftco-section">
       <div class="container">
           <div class="row no-gutters ftco-services">
     <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
@@ -94,9 +86,9 @@
     </div>
   </div>
       </div>
-  </section>
+  </section> --}}
 
-  <section class="ftco-section ftco-category ftco-no-pt">
+  {{-- <section class="ftco-section ftco-category ftco-no-pt">
       <div class="container">
           <div class="row">
               <div class="col-md-8">
@@ -139,7 +131,7 @@
               </div>
           </div>
       </div>
-  </section>
+  </section> --}}
 
 <section class="ftco-section">
   <div class="container">
@@ -385,7 +377,7 @@
   </div>
 </section>
   
-  <section class="ftco-section img" style="background-image: url(frontend/images/bg_3.jpg);">
+  {{-- <section class="ftco-section img" style="background-image: url(frontend/images/bg_3.jpg);">
   <div class="container">
           <div class="row justify-content-end">
     <div class="col-md-6 heading-section ftco-animate deal-of-the-day ftco-animate">
@@ -403,9 +395,9 @@
     </div>
   </div>   		
   </div>
-</section>
+</section> --}}
 
-<section class="ftco-section testimony-section">
+{{-- <section class="ftco-section testimony-section">
 <div class="container">
   <div class="row justify-content-center mb-5 pb-3">
     <div class="col-md-7 heading-section ftco-animate text-center">
@@ -491,11 +483,11 @@
     </div>
   </div>
 </div>
-</section>
+</section> --}}
 
 <hr>
 
-  <section class="ftco-section ftco-partner">
+{{-- <section class="ftco-section ftco-partner">
   <div class="container">
       <div class="row">
           <div class="col-sm ftco-animate">
@@ -515,7 +507,7 @@
           </div>
       </div>
   </div>
-</section>
+</section> --}}
 
 <!-- end content -->
 @endsection
