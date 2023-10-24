@@ -4,10 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Category;
-
 use Illuminate\Http\Request;
-// use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
+
 
 class ProductController extends Controller
 
@@ -158,4 +157,20 @@ class ProductController extends Controller
 
         return back()->with('status', 'The Product "' . $product->product_name . '" Unactivated Successfully');
     }
+
+
+
+    public function productsByCategory($category_name)
+    {
+        $allProducts = Product::All()->where('category_name', $category_name)->where('product_status', 1);
+
+        $allCategories = Category::All();
+
+        return view('client.shop')->with('allProductsFromTableByCategoryAndStatus', $allProducts)->with('allCategories', $allCategories);
+    }
+
+
+
+
+
 }

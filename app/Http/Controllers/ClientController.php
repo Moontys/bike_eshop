@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Slider;
 use App\Models\Product;
+use App\Models\Category;
 
 
 
@@ -17,14 +18,20 @@ class ClientController extends Controller
 
         $allProducts = Product::All()->where('product_status', 1);
 
-        return view('client.home')->with('allSlidersFromTableWhereId1', $allSliders)->with('allProductsFromTableWhereId1', $allProducts);
+        return view('client.home')->with('allSlidersFromTableByStatus', $allSliders)->with('allProductsFromTableByStatus', $allProducts);
     }
 
 
     public function shop()
     {
-        return view('client.shop');
+        $allCategories = Category::All();
+
+        $allProducts = Product::All()->where('product_status', 1);
+
+        return view('client.shop')->with('allCategoriesFromTable', $allCategories)->with('allProductsFromTableByStatus', $allProducts);
     }
+
+
 
     public function cart()
     {
