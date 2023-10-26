@@ -162,11 +162,12 @@ class ProductController extends Controller
 
     public function productsByCategory($category_name)
     {
-        $allProducts = Product::All()->where('category_name', $category_name)->where('product_status', 1);
+        $allProducts = Product::All()->where('product_category', $category_name)->where('product_status', 1);
 
         $allCategories = Category::All();
 
-        return view('client.shop')->with('allProductsFromTableByCategoryAndStatus', $allProducts)->with('allCategories', $allCategories);
+        // return view('client.shop')->with('allProductsFromTableByStatus', $allProducts)->with('allCategoriesFromTable', $allCategories);
+        return view('client.shop')->with('allProductsFromTableByStatusAndCategoryNameORallProductsFromTableByStatus', $allProducts)->with('allCategoriesFromTable', $allCategories);
     }
 
 

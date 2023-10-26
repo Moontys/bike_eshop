@@ -21,6 +21,12 @@ Route::get('/shop', [ClientController::class, 'shop']);
 
 Route::get('/cart', [ClientController::class, 'cart']);
 
+Route::get('/add-to-cart/{id}', [ClientController::class, 'addToCart']);
+
+Route::post('/update-quantity/{id}', [ClientController::class, 'updateQuantity']);
+
+Route::get('/remove-from-cart/{id}', [ClientController::class, 'removeFromCart']);
+
 Route::get('/checkout', [ClientController::class, 'checkout']);
 
 Route::get('/login', [ClientController::class, 'login']);

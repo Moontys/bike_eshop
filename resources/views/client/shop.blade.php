@@ -26,35 +26,33 @@
     	<div class="container">
     		<div class="row justify-content-center">
     			<div class="col-md-10 mb-5 text-center">
-    				<ul class="product-category">
-    					<li><a href="#" class="active">All</a></li>
-
+					
+					<ul class="product-category">
+						<li><a href="{{ url('/shop') }}" class="{{ request()->is('shop*') ? 'active' : '' }}">All</a></li>
+					
 						@foreach ($allCategoriesFromTable as $categoryFromTable)
-
-						<li><a href="{{ url('/products-by-category/' . $categoryFromTable->category_name) }}">{{ $categoryFromTable->category_name }}</a></li>
-						{{-- <li><a href="{{ url('/products-by-category/' . str_replace(' ', '-', $categoryFromTable->category_name)) }}">{{ $categoryFromTable->category_name }}</a></li> --}}
-
+							<li><a href="{{ url('/products-by-category/' . $categoryFromTable->category_name) }}" class="{{ request()->is('products-by-category/' . $categoryFromTable->category_name) ? 'active' : '' }}">{{ $categoryFromTable->category_name }}</a></li>
 						@endforeach
-    					
-    				</ul>
+					</ul>
+
     			</div>
     		</div>
 
-
+		
     		<div class="row">
-				@foreach ($allProductsFromTableByStatus as $productFromTableByStatus)
+				@foreach ($allProductsFromTableByStatusAndCategoryNameORallProductsFromTableByStatus as $productFromTableByStatusAndCategoryNameORproductFromTableByStatus)
 
 					<div class="col-md-6 col-lg-3 ftco-animate">
 						<div class="product">
-							<a href="#" class="img-prod"><img class="img-fluid" src="storage/product_images/{{ $productFromTableByStatus->product_image }}" alt="Colorlib Template">
+							<a href="#" class="img-prod"><img class="img-fluid" src="{{ asset('storage/product_images/' . $productFromTableByStatusAndCategoryNameORproductFromTableByStatus->product_image) }}" alt="Colorlib Template">
 								<span class="status">30%</span>
 								<div class="overlay"></div>
 							</a>
 							<div class="text py-3 pb-4 px-3 text-center">
-								<h3><a href="3">{{ $productFromTableByStatus->product_name }}</a></h3>
+								<h3><a href="3">{{ $productFromTableByStatusAndCategoryNameORproductFromTableByStatus->product_name }}</a></h3>
 								<div class="d-flex">
 									<div class="pricing">
-										<p class="price"><span class="mr-2 price-dc"></span><span class="price-sale">{{ $productFromTableByStatus->product_price }}</span></p>
+										<p class="price"><span class="mr-2 price-dc"></span><span class="price-sale">{{ $productFromTableByStatusAndCategoryNameORproductFromTableByStatus->product_price }}</span></p>
 									</div>
 								</div>
 								<div class="bottom-area d-flex px-3">
@@ -62,7 +60,7 @@
 										<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
 											<span><i class="ion-ios-menu"></i></span>
 										</a>
-										<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+										<a href="{{ url('/add-to-cart/' . $productFromTableByStatusAndCategoryNameORproductFromTableByStatus->id) }}" class="buy-now d-flex justify-content-center align-items-center mx-1">
 											<span><i class="ion-ios-cart"></i></span>
 										</a>
 										<a href="#" class="heart d-flex justify-content-center align-items-center ">
@@ -78,7 +76,7 @@
 			</div>
 
 
-    		<div class="row mt-5">
+    	<div class="row mt-5">
           <div class="col text-center">
             <div class="block-27">
               <ul>
