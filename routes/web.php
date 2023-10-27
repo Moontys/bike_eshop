@@ -33,6 +33,12 @@ Route::get('/login', [ClientController::class, 'login']);
 
 Route::get('/signup', [ClientController::class, 'signup']);
 
+Route::post('/create-account', [ClientController::class, 'createAccount']);
+
+Route::get('/access-account', [ClientController::class, 'accessAccount']);
+
+Route::get('/log-out', [ClientController::class, 'logOut']);
+
 
 
 
