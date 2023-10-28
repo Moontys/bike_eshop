@@ -10,6 +10,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PdfController;
 use App\Http\Controllers\SliderController;
 
 
@@ -37,8 +38,11 @@ Route::post('/create-account', [ClientController::class, 'createAccount']);
 
 Route::get('/access-account', [ClientController::class, 'accessAccount']);
 
+Route::post('/post-checkout', [ClientController::class, 'postCheckout']);
+
 Route::get('/log-out', [ClientController::class, 'logOut']);
 
+Route::get('all-orders', [ClientController::class, 'allOrders']);
 
 
 
@@ -104,21 +108,6 @@ Route::get('/products-by-category/{category_name}', [ProductController::class, '
 
 
 
-Route::get('all-orders', [OrderController::class, 'allOrders']);
-
-
-
-
-
-// Route::get('/welcome', function () {
-//     return view('welcome');
-// });
-
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth'])->name('dashboard');
-
-// require __DIR__.'/auth.php';
+Route::get('/view-pdf-order/{id}', [PdfController::class, 'viewPdfOrder']);
 
 

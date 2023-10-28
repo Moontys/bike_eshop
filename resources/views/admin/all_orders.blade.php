@@ -16,7 +16,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Ordes</li>
+              <li class="breadcrumb-item active">Orders</li>
             </ol>
           </div>
         </div>
@@ -30,40 +30,51 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">All Ordes</h3>
+                <h3 class="card-title">All Orders</h3>
               </div>
-              <!-- /.card-header -->
+
+              @if (Session::has('error'))
+                <div class="alert alert-danger">
+                  {{ Session::get('error') }}
+                </div>
+              @endif
+
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
                     <th>Date</th>
+                    <th>Address</th>
                     <th>Client Names</th>
                     <th>Orders</th>
                     <th>Actions</th>
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
-                    <td>2020</td>
-                    <td>Win 95+</td>
-                    <td> 4</td>
-                    <td>
-                      <a href="#" class="btn btn-primary"><i class="nav-icon fas fa-eye"></i></a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>2020</td>
-                    <td>Win 95+</td>
-                    <td>5</td>
-                    <td>
-                      <a href="#" class="btn btn-primary"><i class="nav-icon fas fa-eye"></i></a>
-                    </td>
-                  </tr>
+
+                    @foreach ($allOrdersFromTable as $orderFromTable)
+                    <tr>
+                        <td>{{ $orderFromTable->created_at }}</td>
+                        <td>{{ $orderFromTable->order_address }}</td>
+                        <td>{{ $orderFromTable->order_name }}</td>
+                        <td>
+ 
+                          @foreach ($orderFromTable->order_cart->items as $item)
+                            {{ $item['product_name'] . ', '}}
+                          @endforeach
+
+                        </td>
+                        <td>
+                          <a href="{{ url('/view-pdf-order/' . $orderFromTable->id) }}" class="btn btn-primary"><i class="nav-icon fas fa-eye"></i></a>
+                        </td>
+                    </tr>
+                    @endforeach
+
                   </tbody>
                   <tfoot>
                   <tr>
                     <th>Date</th>
+                    <th>Address</th>
                     <th>Client Names</th>
                     <th>Orders</th>
                     <th>Actions</th>
@@ -142,3 +153,9 @@
   </script>
 
 @endsection
+
+
+
+
+
+

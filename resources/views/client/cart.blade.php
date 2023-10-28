@@ -12,7 +12,7 @@
 
 	<!-- start content -->
 
-    <div class="hero-wrap hero-bread" style="background-image: url('frontend/images/bg_1.jpg');">
+    {{-- <div class="hero-wrap hero-bread" style="background-image: url('frontend/images/bg_1.jpg');">
         <div class="container">
           <div class="row no-gutters slider-text align-items-center justify-content-center">
             <div class="col-md-9 ftco-animate text-center">
@@ -21,7 +21,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> --}}
   
       <section class="ftco-section ftco-cart">
               <div class="container">
@@ -68,16 +68,17 @@
                                         </td>
                                       </form>
 
-                                      
-
                                       <td class="total">{{ $product['qty'] * $product['product_price'] }}</td>
                                   </tr><!-- END TR-->
 
                                   @endforeach
+
                                 @else
-
-
-
+                                  @if (Session::has('status'))
+                                    <div class="alert alert-success">
+                                      {{ Session::get('status') }}
+                                    </div>
+                                  @endif
                                 @endif
 
                               </tbody>

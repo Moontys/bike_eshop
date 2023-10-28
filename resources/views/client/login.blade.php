@@ -81,7 +81,7 @@
 
 					<div class="text-center p-t-90">
 						<a class="txt1" href="{{url('/signup')}}">
-							Don't have an Account? Register!
+							Don't have an Account? REGISTER!
 						</a>
 					</div>
 				</form>

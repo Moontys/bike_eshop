@@ -26,58 +26,37 @@
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-xl-7 ftco-animate">
-				<form action="#" class="billing-form">
+
+				<form action="{{ url('/post-checkout') }}" method="POST" class="billing-form">
+
+					{{ csrf_field() }}
+
 					<h3 class="mb-4 billing-heading">Billing Details</h3>
 					<div class="row align-items-end">
+
 						<div class="col-md-12">
 							<div class="form-group">
 								<label for="firstname">Full Name</label>
-							<input type="text" class="form-control" name="name">
+							<input type="text" class="form-control" name="order_name">
 							</div>
 						</div>
+
 						<div class="col-md-12">
 							<div class="form-group">
 								<label for="lastname">Address</label>
-							<input type="text" class="form-control"  name="address">
+							<input type="text" class="form-control"  name="order_address">
 							</div>
 						</div>
-						<div class="col-md-12">
-							<div class="form-group">
-								<label for="lastname">Name on Card</label>
-							<input type="text" class="form-control" id="card-name" name="card_name">
-							</div>
-						</div>
-						<div class="col-md-12">
-							<div class="form-group">
-								<label for="lastname">Number</label>
-							<input type="text" class="form-control" id="card-number">
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label for="lastname">Expiration Month</label>
-							<input type="text" id="card-expiry-month" class="form-control">
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label for="lastname">Expiration Year</label>
-							<input type="text" id="card-expiry-year" class="form-control">
-							</div>
-						</div>
-						<div class="col-md-12">
-							<div class="form-group">
-								<label for="lastname">CVC</label>
-							<input type="text" id="card-cvc" class="form-control">
-							</div>
-						</div>
+
 						<div class="col-md-12">
 							<div class="form-group">
 							<input type="submit" class="btn btn-primary" value="Buy Now">
 							</div>
-						</div>
+						</div> 
+						
 					</div>
-	          </form><!-- END -->
+	          	</form>
+
 					</div>
 					<div class="col-xl-5">
 	          <div class="row mt-5 pt-3">
@@ -153,3 +132,43 @@
 </script>
 
 @endsection
+
+
+
+
+
+
+
+
+
+
+{{-- <div class="col-md-12">
+	<div class="form-group">
+		<label for="lastname">Name on Card</label>
+	<input type="text" class="form-control" id="card-name" name="card_name">
+	</div>
+</div>
+<div class="col-md-12">
+	<div class="form-group">
+		<label for="lastname">Number</label>
+	<input type="text" class="form-control" id="card-number">
+	</div>
+</div>
+<div class="col-md-6">
+	<div class="form-group">
+		<label for="lastname">Expiration Month</label>
+	<input type="text" id="card-expiry-month" class="form-control">
+	</div>
+</div>
+<div class="col-md-6">
+	<div class="form-group">
+		<label for="lastname">Expiration Year</label>
+	<input type="text" id="card-expiry-year" class="form-control">
+	</div>
+</div>
+<div class="col-md-12">
+	<div class="form-group">
+		<label for="lastname">CVC</label>
+	<input type="text" id="card-cvc" class="form-control">
+	</div>
+</div> --}}

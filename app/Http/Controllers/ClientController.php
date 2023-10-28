@@ -9,7 +9,9 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Cart;
 use App\Models\Client;
+use App\Models\Order;
 use Illuminate\Support\Facades\Hash;
+use Serializable;
 
 
 
@@ -47,7 +49,6 @@ class ClientController extends Controller
         $cart->add($product, $id);
         Session::put('cart', $cart);
 
-        // dd(Session::get('cart'));
         return back();
     }
 
@@ -104,6 +105,12 @@ class ClientController extends Controller
         {
             return view('client.login');
         }
+
+        if (!Session::has('cart'))
+        {
+            return view('client.cart');
+        }
+
         return view('client.checkout');
     }
 
@@ -176,6 +183,44 @@ class ClientController extends Controller
             {
                 return back()->with('status', 'Something is wrong with this email');
             }
+        }
 
+
+
+
+    public function allOrders()
+    {
+        $allOrders = Order::All();
+
+        $allOrders->transform(function($orderFromTable, $key)
+        {
+            $orderFromTable->order_cart = unserialize($orderFromTable->order_cart);
+            
+            return $orderFromTable;
+        });
+
+        return view('admin.all_orders')->with('allOrdersFromTable', $allOrders);
     }
+
+  
+
+
+    public function postCheckout(Request $request)
+    {
+        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        $cart = new Cart($oldCart);
+
+        $newOrder = new Order();
+        $newOrder->order_name =$request->input('order_name');
+        $newOrder->order_address = $request->input('order_address');
+        $newOrder->order_cart = serialize($cart);
+
+        $newOrder->save();
+
+        Session::forget('cart');
+
+        return redirect('/cart')->with('status', 'Your Purchase Has Been Successfully Accomlished');
+    }
+    
+    
 }
