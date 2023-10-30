@@ -16,7 +16,7 @@ class PdfController extends Controller
 
         Session::put('id', $id);
         try{
-            $pdf = \App::make('dompdf.wrapper')->setPaper('a4', 'landscape');
+            $pdf = App::make('dompdf.wrapper')->setPaper('a4', 'landscape');
             $pdf->loadHTML($this->convert_orders_data_to_html());
 
             return $pdf->stream();

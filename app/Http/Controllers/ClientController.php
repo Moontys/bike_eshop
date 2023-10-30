@@ -11,7 +11,9 @@ use App\Cart;
 use App\Models\Client;
 use App\Models\Order;
 use Illuminate\Support\Facades\Hash;
-use Serializable;
+Use Illuminate\Support\Facades\Mail;
+use App\Mail\SendMail;
+
 
 
 
@@ -210,14 +212,31 @@ class ClientController extends Controller
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
 
+        $payerId = time();
+
         $newOrder = new Order();
         $newOrder->order_name =$request->input('order_name');
         $newOrder->order_address = $request->input('order_address');
         $newOrder->order_cart = serialize($cart);
+        $newOrder->payer_id = $payerId;
 
         $newOrder->save();
 
         Session::forget('cart');
+
+        $allOrders = Order::where('payer_id', $payerId);
+
+        $allOrders->transform(function($newOrder, $key)
+        {
+            $newOrder->order_cart = unserialize($newOrder->order_cart);
+            
+            return $newOrder;
+        });
+
+        $email = Session::get('client')->email;
+
+        Mail::to($email)->send(new SendMail($newOrder));
+
 
         return redirect('/cart')->with('status', 'Your Purchase Has Been Successfully Accomlished');
     }
