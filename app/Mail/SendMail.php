@@ -11,18 +11,18 @@ class SendMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $orders;
+    public $allOrders;
 
 
-    public function __construct($orders)
+    public function __construct($allOrders)
     {
-        $this->orders = $orders;
+        $this->allOrders = $allOrders;
     }
 
 
 
     public function build()
     {
-        return $this->from('mantas.stirpeika@gmail.com')->subject('Purchased Product')->view('mail.invoice')->with('orders', $this->orders);
+        return $this->from('mantas.stirpeika@gmail.com')->subject('Purchased Product')->view('mail.invoice')->with('allOrders', $this->allOrders);
     }
 }

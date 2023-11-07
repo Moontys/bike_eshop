@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Hash;
+Use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
+use Srmklive\PayPal\Services\ExpressCheckout;
+use App\Models\Client;
+use App\Models\Order;
 use App\Models\Slider;
 use App\Models\Product;
 use App\Models\Category;
 use App\Cart;
-use App\Models\Client;
-use App\Models\Order;
-use Illuminate\Support\Facades\Hash;
-Use Illuminate\Support\Facades\Mail;
 use App\Mail\SendMail;
 
 
@@ -209,37 +210,108 @@ class ClientController extends Controller
 
     public function postCheckout(Request $request)
     {
-        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        try
+        {
+            $oldCart = Session::has('cart') ? Session::get('cart') : null;
+            $cart = new Cart($oldCart);
+
+            $payerId = time();
+
+            $newOrder = new Order();
+            $newOrder->order_name =$request->input('order_name');
+            $newOrder->order_address = $request->input('order_address');
+            $newOrder->order_cart = serialize($cart);
+
+            Session::out('newOrder', $newOrder);
+
+            $checkoutData = $this->checkoutData();
+
+            $provider = new ExpressCheckout();
+    
+            $response = $provider->setExpressCheckout($checkoutData);
+    
+            return redirect($response['paypal_link']);
+
+
+        }
+        catch(\Exception $e){
+            return redirect('/checkout')->with('error', $e->getMessage());
+        }
+    }
+
+
+    private function checkoutData(){
+
+        $oldCart = Session::has('cart')? Session::get('cart'): null;
+
         $cart = new Cart($oldCart);
 
-        $payerId = time();
+        $data['items'] = [];
 
-        $newOrder = new Order();
-        $newOrder->order_name =$request->input('order_name');
-        $newOrder->order_address = $request->input('order_address');
-        $newOrder->order_cart = serialize($cart);
-        $newOrder->payer_id = $payerId;
+        foreach($cart->items as $item ){
+                $itemDetails=[
+                'name' => $item['product_name'],
+                'price' => $item['product_price'],
+                'qty' => $item['qty']
+                ];
 
-        $newOrder->save();
+            $data['items'][] = $itemDetails;       
+        }
 
-        Session::forget('cart');
+        $checkoutData = [
+            'items' => $data['items'],
+            'return_url' => url('/paiement-success'),
+            'cancel_url' => url('/checkout'),
+            'invoice_id' => uniqid(),
+            'invoice_description' => "order description",
+            'total' => Session::get('cart')->totalPrice
+        ];
 
-        $allOrders = Order::where('payer_id', $payerId);
+        return $checkoutData;
+        }
 
-        $allOrders->transform(function($newOrder, $key)
+
+    
+    public function paymentSuccess(Request $request)
+    {
+        try
         {
-            $newOrder->order_cart = unserialize($newOrder->order_cart);
+            $token = $request->get('token');
+            $payerIdFromPaypal = $request->get('PayerID');
+            $checkoutData = $this->checkoutData();
+
+            $provider = new ExpressCheckout();
+            $response = $provider->getExpressCheckoutDetails($token);
+            $response = $provider->doExpressCheckoutPayment($checkoutData, $token, $payerIdFromPaypal);
+
+            $payerId = $payerIdFromPaypal . '_' . time();
             
-            return $newOrder;
-        });
+            Session::get('newOrder')->payer_id = $payerId;
 
-        $email = Session::get('client')->email;
+            Session::get('newOrder')->save();
 
-        Mail::to($email)->send(new SendMail($newOrder));
+            $allOrders = Order::where('payer_id', $payerId)->get();
 
+            $allOrders->transform(function($newOrder, $key)
+            {
+                $newOrder->order_cart = unserialize($newOrder->order_cart);
+                
+                return $newOrder;
+            });
 
-        return redirect('/cart')->with('status', 'Your Purchase Has Been Successfully Accomlished');
-    }
-    
-    
+            $email = Session::get('client')->email;
+
+            Mail::to($email)->send(new SendMail($allOrders));
+
+            Session::forget('cart');
+
+            return redirect('/cart')->with('status', 'Your Purchase Has Been Successfully Accomlished');
+        }
+
+        catch(\Exception $e)
+        {
+            return redirect('/checkout')->with('error', $e->getMessage());
+        }
+
+    } 
 }

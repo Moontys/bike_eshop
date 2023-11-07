@@ -40,6 +40,8 @@ Route::get('/access-account', [ClientController::class, 'accessAccount']);
 
 Route::post('/post-checkout', [ClientController::class, 'postCheckout']);
 
+Route::get('/paiement-success', [ClientController::class, 'paymentSuccess']);
+
 Route::get('/log-out', [ClientController::class, 'logOut']);
 
 Route::get('all-orders', [ClientController::class, 'allOrders']);

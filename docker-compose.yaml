@@ -40,6 +40,18 @@ services:
         networks:
             - app-network
 
+    smtp:
+        platform: linux/x86_64
+        image: mailhog/mailhog
+        container_name: app-smtp
+        logging:
+            driver: 'none'
+        ports:
+            # - "8003:1025"
+            - "8025:8025"
+        networks:
+            - app-network
+
 networks:
     app-network:
         driver: bridge

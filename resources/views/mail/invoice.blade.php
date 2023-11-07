@@ -108,10 +108,10 @@
                 <td colspan="2">
 
                         <table>
-                            @foreach ($orders as $order)
+                            @foreach ($allOrders as $order)
                                 <tr>
                                     <td class="title">
-                                        <h2>Company</h2>
+                                        <h4>STAG BEATLE Company, same-minded Friends & Forest near by</h4>
                                     </td>
                                     
                                     <td>
@@ -129,7 +129,7 @@
                 <td colspan="2">
   
                         <table>
-                            @foreach ($oders as $order)
+                            @foreach ($allOrders as $order)
                                 <tr>
                                     <td>
                                         {{ $order->order_address }}
@@ -183,20 +183,20 @@
                     </td>
                 </tr>
 
-                @foreach ($orders as $order)
+                @foreach ($allOrders as $order)
                     @foreach ($order->order_cart->items as $item)
                         <tr class="item">
                             <td>
-                                {{ item['product_name'] }}
+                                {{ $item['product_name'] }}
                             </td>
                             <td>
-                                {{ item['qty'] }}
+                                {{ $item['qty'] }}
                             </td>
                             <td>
-                                {{ item['product_price'] }}
+                                {{ $item['product_price'] }}
                             </td>
                             <td>
-                                {{ item['product_price'] * item['qty']}}
+                                {{ $item['product_price'] * $item['qty']}}
                             </td>
                         </tr>
                     @endforeach
