@@ -21,7 +21,6 @@ use App\Mail\SendMail;
 
 class ClientController extends Controller
 {
-
     public function home()
     {
         $allSliders = Slider::All()->where('slider_status', 1);
@@ -222,7 +221,7 @@ class ClientController extends Controller
             $newOrder->order_address = $request->input('order_address');
             $newOrder->order_cart = serialize($cart);
 
-            Session::out('newOrder', $newOrder);
+            Session::put('newOrder', $newOrder);
 
             $checkoutData = $this->checkoutData();
 
