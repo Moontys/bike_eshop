@@ -33,14 +33,6 @@
 
     {{-- start navbar--}}
 
-      @include('client_layout.header')
-
-    {{-- end navbar--}}
-
-
-
-    {{-- start navbar--}}
-
       @include('client_layout.navbar')
 
     {{-- end navbar--}}

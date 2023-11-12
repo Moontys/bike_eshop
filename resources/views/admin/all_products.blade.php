@@ -63,7 +63,7 @@
                           <img src="storage/product_images/{{ $productFromTable->product_image }}" style="height:50px;width:50px" class="img-circle elevation-2" alt="User Image">
                         </td>
                         <td>{{ $productFromTable->product_name }}</td>
-                        <td>{{ $productFromTable->product_category }}</td>
+                        <td>{{ $productFromTable->category->category_name }}</td>
                         <td>{{ $productFromTable->product_price . ' €' }}</td>
                         <td>
 

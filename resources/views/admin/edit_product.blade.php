@@ -51,7 +51,7 @@
                                 <h3 class="card-title">Add product</h3>
                             </div>
 
-                            {!! Form::open(['action' => 'App\Http\Controllers\ProductController@updateEditedSlider', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+                            {!! Form::open(['action' => 'App\Http\Controllers\ProductController@updateEditedProduct', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
                             {{ csrf_field() }}
 
                             <div class="card-body">

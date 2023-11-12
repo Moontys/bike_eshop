@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Hash;
@@ -14,14 +16,12 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Cart;
 use App\Mail\SendMail;
-
-
-
-
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class ClientController extends Controller
 {
-    public function home()
+    public function home(): View
     {
         $allSliders = Slider::All()->where('slider_status', 1);
 
@@ -31,7 +31,7 @@ class ClientController extends Controller
     }
 
 
-    public function shop()
+    public function shop(): View
     {
         $allCategories = Category::All();
 
@@ -42,7 +42,7 @@ class ClientController extends Controller
 
 
 
-    public function addToCart($id)
+    public function addToCart(int $id): RedirectResponse
     {
         $product = Product::find($id);
 
@@ -55,7 +55,7 @@ class ClientController extends Controller
     }
 
 
-    public function updateQuantity(Request $request, $id)
+    public function updateQuantity(Request $request, int $id)
     {
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
@@ -67,7 +67,7 @@ class ClientController extends Controller
 
 
 
-    public function removeFromCart($id)
+    public function removeFromCart(int $id): RedirectResponse
     {
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
@@ -85,7 +85,7 @@ class ClientController extends Controller
     }
 
 
-    public function cart()
+    public function cart(): View
     {
         if (!Session::has('cart'))
         {
@@ -239,7 +239,8 @@ class ClientController extends Controller
     }
 
 
-    private function checkoutData(){
+    private function checkoutData()
+    {
 
         $oldCart = Session::has('cart')? Session::get('cart'): null;
 
@@ -247,12 +248,12 @@ class ClientController extends Controller
 
         $data['items'] = [];
 
-        foreach($cart->items as $item ){
-                $itemDetails=[
+        foreach($cart->items as $item) {
+            $itemDetails = [
                 'name' => $item['product_name'],
                 'price' => $item['product_price'],
-                'qty' => $item['qty']
-                ];
+                'qty' => $item['qty'],
+            ];
 
             $data['items'][] = $itemDetails;       
         }
@@ -263,14 +264,12 @@ class ClientController extends Controller
             'cancel_url' => url('/checkout'),
             'invoice_id' => uniqid(),
             'invoice_description' => "order description",
-            'total' => Session::get('cart')->totalPrice
+            'total' => Session::get('cart')->totalPrice,
         ];
 
         return $checkoutData;
-        }
+    }
 
-
-    
     public function paymentSuccess(Request $request)
     {
         try
@@ -305,12 +304,8 @@ class ClientController extends Controller
             Session::forget('cart');
 
             return redirect('/cart')->with('status', 'Your Purchase Has Been Successfully Accomlished');
-        }
-
-        catch(\Exception $e)
-        {
+        } catch(\Exception $e) {
             return redirect('/checkout')->with('error', $e->getMessage());
         }
-
-    } 
+    }
 }

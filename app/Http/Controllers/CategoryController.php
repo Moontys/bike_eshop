@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
-
-
+use App\Models\Product;
 
 class CategoryController extends Controller
 {
@@ -66,6 +65,14 @@ class CategoryController extends Controller
 
     public function deleteCategory($id)
     {
+        $productCountByCategoryId = Product::where('category_id', $id)->count();
+
+        // var_dump($productCountByCategoryId); die;
+
+        if ($productCountByCategoryId > 0) {
+            return back('status', 'Category Can Not Be Delete Because There are Products In it! Please Give For Those Produts New Category');
+        }
+
         $category = Category::find($id);
 
         $categoryNameFromTableById = $category->category_name;

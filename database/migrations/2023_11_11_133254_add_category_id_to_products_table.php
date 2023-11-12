@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddPayerIdColumnToOrdersTable extends Migration
+class AddCategoryIdToProductsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class AddPayerIdColumnToOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::table('orders', function (Blueprint $table) {
-            
-            $table->string('payer_id');
+        Schema::table('products', function (Blueprint $table) {
+            $table->integer('category_id')->unsigned()->nullable();
         });
     }
 
@@ -26,9 +25,8 @@ class AddPayerIdColumnToOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::table('orders', function (Blueprint $table) {
-
-            $table->dropColumn('payer_id');
+        Schema::table('products', function (Blueprint $table) {
+            //
         });
     }
 }
