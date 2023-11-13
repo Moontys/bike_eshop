@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Models\Product;
@@ -7,39 +9,36 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
+use SebastianBergmann\Type\VoidType;
 
 class ProductController extends Controller
 
 
 {
-    public function allProducts()
+    public function allProducts(): View
     {
         $allProducts = Product::All();
 
         return view('admin.all_products')->with('allProductsFromTable', $allProducts);
     }
 
-
-
     public function addProduct()
-    {
+    {   // ('category_name', 'id') ? 'category_name' - ? 'id' - ? Kudie?!
         $categoryNames = Category::All()->pluck('category_name', 'id');
 
         return view('admin.add_product')->with('allCategoryNamesFromTable', $categoryNames);
     }
-        
 
-   
     public function saveAddedProduct(Request $request)
     {
         $this->validate($request, [
             'product_name' => 'required',
             'product_price' => 'required',
-            'product_category' => 'required',
-            'product_image' => 'image|nullable|max:1999'
+            'product_category_id' => 'required',
+            'product_image' => 'image|nullable|max:1999',
         ]);
 
-        if ($request->hasFile('product_image')){
+        if ($request->hasFile('product_image')) {
             $fileNameWithExt = $request->file('product_image')->getClientOriginalName();
             $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
             $extension = $request->file('product_image')->getClientOriginalExtension();
@@ -51,14 +50,14 @@ class ProductController extends Controller
         else {
             $fileNameToStore = 'no_image.png';
         }
-        $product = new Product();
-        $product->product_name = $request->input('product_name');
-        $product->product_price = $request->input('product_price');
-        $product->category_id = (int)$request->input('product_category');
-        $product->product_image = $fileNameToStore;
-        $product->product_status = 1;
-    
-        $product->save();
+        $newProduct = new Product();
+        $newProduct->product_name = $request->input('product_name');
+        $newProduct->product_price = $request->input('product_price');
+        $newProduct->category_id = (int)$request->input('product_category_id');
+        $newProduct->product_status = 1;
+        $newProduct->product_image = $fileNameToStore;
+        
+        $newProduct->save();
     
         return back()->with('status', 'The Product "' . $request->input('product_name') . '" Added Successfully');
     }

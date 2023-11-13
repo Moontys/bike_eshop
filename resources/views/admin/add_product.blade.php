@@ -10,7 +10,6 @@
         <section class="content-header">
             <div class="container-fluid">
 
-
                 @if (Session::has('status'))
                     <div class="alert alert-success">
                         {{ Session::get('status') }}
@@ -25,18 +24,6 @@
                     </div>
                 @endif
 
-
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1>Product</h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Product</li>
-                        </ol>
-                    </div>
-                </div>
             </div><!-- /.container-fluid -->
         </section>
 
@@ -48,12 +35,14 @@
                         <div class="card card-success">
 
                             <div class="card-header">
-                                <h3 class="card-title">Add product</h3>
+                                <h3 class="card-title">Add Product</h3>
                             </div>
+
 
                             {!! Form::open(['action' => 'App\Http\Controllers\ProductController@saveAddedProduct', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
                             {{ csrf_field() }}
 
+                            
                             <div class="card-body">
                                 <div class="form-group">
                                     {{ Form::label('inputProductName', 'Product name') }}
@@ -66,22 +55,25 @@
                                 </div>
 
                                 <div class="form-group">
-                                    {{ Form::label('exampleInputEmail', 'Product Category') }}
-                                    {{ Form::select('product_category', $allCategoryNamesFromTable, null, ['placeholder' => 'Select Product Category', 'class' => 'form-control select2', 'id' => 'exampleInputEmail']) }}
+                                    {{ Form::label('efectForCategoriesInput', 'Product Category') }}
+                                    {{ Form::select('product_category_id', $allCategoryNamesFromTable, null, ['placeholder' => 'Select Product Category', 'class' => 'form-control select2', 'id' => 'efectForCategoriesInput']) }}
                                 </div>
 
-                                <div class="input-group">
-                                    <div class="custom-file">
+                                <div class="form-group">
+                                    {{ Form::label('efectForImageInput', 'Product Image') }}
+                                    <div class="input-group">
+                                        <div class="custom-file">
 
-                                        {{ Form::label('inputProductImage', 'Product Image', ['class' => 'custom-file-label']) }}
-                                        {{ Form::file('product_image', ['class' => 'custom-file-input', 'id' => 'inputProductImage']) }}
-                                        
+                                            {{ Form::file('product_image', ['class' => 'custom-file-input', 'id' => 'efectForImageInput']) }}
+                                            {{ Form::label('inputProductImage', 'Choose file', ['class' => 'custom-file-label']) }}
+                                            
+                                        </div>
                                     </div>
                                 </div>
-
-                            <div class="card-footer">
-                                {{ Form::submit('Save', ['class' => 'btn btn-success']) }}
-                            </div>
+                                
+                                <div class="card-footer">
+                                    {{ Form::submit('Save', ['class' => 'btn btn-success']) }}
+                                </div>
                             
                             {!! Form::close() !!}
                         </div>
@@ -90,9 +82,9 @@
             </div>
         </section>
     </div>
-    @endsection
+@endsection
 
-                                        {{-- SU! - "{{ asset(' ir ') }}"> --}}
+
 
     @section('scripts')
     <!-- jquery-validation -->
