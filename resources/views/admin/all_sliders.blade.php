@@ -16,18 +16,7 @@
           </div>
         @endif
 
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>Sliders</h1>
-          </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Sliders</li>
-            </ol>
-          </div>
-        </div>
-      </div><!-- /.container-fluid -->
+      </div>
     </section>
 
     <!-- Main content -->
@@ -35,45 +24,44 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
-            <div class="card">
+            <div class="card card-warning">
+
               <div class="card-header">
                 <h3 class="card-title">All Sliders</h3>
               </div>
-              <!-- /.card-header -->
+
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
-                  <tr>
-                    <th>Num.</th>
-                    <th>Picture</th>
-                    <th>Description one</th>
-                    <th>Description Two</th>
-                    <th>Actions</th>
-                  </tr>
+                    <tr>
+                      <th>Num.</th>
+                      <th>Picture</th>
+                      <th>Description One</th>
+                      <th>Description Two</th>
+                      <th>Actions</th>
+                    </tr>
                   </thead>
+                  
                   <tbody>
 
-                    @foreach ($allSlidersFromTable as $sliderFromTable)
+                    @foreach ($allSliders as $slider)
                       <tr>
                         <td>{{ $increment }}</td>
-                        
                         <td>
-                          <img src="storage/slider_images/{{ $sliderFromTable->slider_image }}" style="height : 50px; width : 50px" class="img-circle elevation-2" alt="User Image">
+                          <img src="storage/slider_images/{{ $slider->slider_image }}" style="height : 50px; width : 50px" class="img-circle elevation-2" alt="User Image">
                         </td>
-
-                        <td>{{ $sliderFromTable->slider_description1 }}</td>
-                          
-                        <td>{{ $sliderFromTable->slider_description2 }}</td>
-                        
+                        <td>{{ $slider->slider_description1 }}</td>
+                        <td>{{ $slider->slider_description2 }}</td>
                         <td>
-                          @if ($sliderFromTable->slider_status == 1)
-                            <a href="{{ url('/unactivate-slider/' . $sliderFromTable->id) }}" class="btn btn-success">Unactivate</a>
+
+                          @if ($slider->slider_status == 1)
+                            <a href="{{ url('/unactivate-slider/' . $slider->id) }}" class="btn btn-success">Unactivate</a>
                           @else
-                            <a href="{{ url('/activate-slider/' . $sliderFromTable->id) }}" class="btn btn-warning">Activate</a>
+                            <a href="{{ url('/activate-slider/' . $slider->id) }}" class="btn btn-warning">Activate</a>
                           @endif
 
-                          <a href="{{ url('/edit-slider/' . $sliderFromTable->id) }}" class="btn btn-primary"><i class="nav-icon fas fa-edit"></i></a>
-                          <a href="{{ url('/delete-slider/' . $sliderFromTable->id) }}" id="delete" class="btn btn-danger"><i class="nav-icon fas fa-trash"></i></a>
+                          <a href="{{ url('/edit-slider/' . $slider->id) }}" class="btn btn-primary"><i class="nav-icon fas fa-edit"></i></a>
+                          <a href="{{ url('/delete-slider/' . $slider->id) }}" id="delete" class="btn btn-danger"><i class="nav-icon fas fa-trash"></i></a>
                         </td>
                       </tr>
 
@@ -82,31 +70,14 @@
                     @endforeach
 
                   </tbody>
-                  <tfoot>
-                  <tr>
-                    <th>Num.</th>
-                    <th>Picture</th>
-                    <th>Description one</th>
-                    <th>Description Two</th>
-                    <th>Actions</th>
-                  </tr>
-                  </tfoot>
                 </table>
               </div>
-              <!-- /.card-body -->
             </div>
-            <!-- /.card -->
           </div>
-          <!-- /.col -->
         </div>
-        <!-- /.row -->
       </div>
-      <!-- /.container-fluid -->
     </section>
-    <!-- /.content -->
   </div>
-  <!-- /.content-wrapper -->
-
 @endsection
 
 

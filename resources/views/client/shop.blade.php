@@ -10,17 +10,32 @@
 
 @section('content')
 <!-- start content -->
-	
-    {{-- <div class="hero-wrap hero-bread" style="background-image: url('frontend/images/bg_1.jpg');">
-      <div class="container">
-        <div class="row no-gutters slider-text align-items-center justify-content-center">
-          <div class="col-md-9 ftco-animate text-center">
-          	<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Products</span></p>
-            <h1 class="mb-0 bread">Products</h1>
-          </div>
-        </div>
-      </div>
-    </div> --}}
+
+	{{-- <section id="home-section" class="hero">
+		<div class="home-slider owl-carousel">
+		
+			@foreach ($allSlidersByStatus as $sliderByStatus)
+				<div class="slider-item" style="background-image: url(/storage/slider_images/{{ $sliderByStatus->slider_image }});">
+
+					<div class="overlay"></div>
+
+					<div class="container">
+						<div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
+
+							<div class="col-md-12 ftco-animate text-center">
+								<h1 class="mb-2">{{ $sliderByStatus->slider_description1 }}</h1>
+								<h2 class="subheading mb-4">{{ $sliderByStatus->slider_description2 }}</h2>
+								<p><a href="#" class="btn btn-primary">View Details</a></p>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			@endforeach
+
+		</div>
+	</section> --}}
+
 
     <section class="ftco-section">
     	<div class="container">
@@ -28,31 +43,32 @@
     			<div class="col-md-10 mb-5 text-center">
 					
 					<ul class="product-category">
+
 						<li><a href="{{ url('/shop') }}" class="{{ request()->is('shop*') ? 'active' : '' }}">All</a></li>
 					
-						@foreach ($allCategoriesFromTable as $categoryFromTable)
-							<li><a href="{{ url('/products-by-category/' . $categoryFromTable->category_name) }}" class="{{ request()->is('products-by-category/' . $categoryFromTable->category_name) ? 'active' : '' }}">{{ $categoryFromTable->category_name }}</a></li>
+						@foreach ($allCategories as $category)
+							<li><a href="{{ url('/products-by-category/' . $category->category_name) }}" class="{{ request()->is('products-by-category/' . $category->category_name) ? 'active' : '' }}">{{ $category->category_name }}</a></li>
 						@endforeach
+
 					</ul>
 
     			</div>
     		</div>
 
-		
     		<div class="row">
-				@foreach ($allProductsFromTableByStatusAndCategoryNameORallProductsFromTableByStatus as $productFromTableByStatusAndCategoryNameORproductFromTableByStatus)
+				@foreach ($allProductsByStatusOrByCategoryAndStatus as $productByStatusOrByCategoryAndStatus)
 
 					<div class="col-md-6 col-lg-3 ftco-animate">
 						<div class="product">
-							<a href="#" class="img-prod"><img class="img-fluid" src="{{ asset('storage/product_images/' . $productFromTableByStatusAndCategoryNameORproductFromTableByStatus->product_image) }}" alt="Colorlib Template">
-								<span class="status">30%</span>
+							<a href="#" class="img-prod"><img class="img-fluid" src="{{ asset('storage/product_images/' . $productByStatusOrByCategoryAndStatus->product_image) }}" alt="Colorlib Template">
+								<span class="status">{{ $productByStatusOrByCategoryAndStatus->discount->discount_percentage ?? 0 . '%'}}</span>
 								<div class="overlay"></div>
 							</a>
 							<div class="text py-3 pb-4 px-3 text-center">
-								<h3><a href="3">{{ $productFromTableByStatusAndCategoryNameORproductFromTableByStatus->product_name }}</a></h3>
+								<h3><a href="3">{{ $productByStatusOrByCategoryAndStatus->product_name }}</a></h3>
 								<div class="d-flex">
 									<div class="pricing">
-										<p class="price"><span class="mr-2 price-dc"></span><span class="price-sale">{{ $productFromTableByStatusAndCategoryNameORproductFromTableByStatus->product_price }}</span></p>
+										<p class="price"><span class="mr-2 price-dc"></span><span class="price-sale">{{ $productByStatusOrByCategoryAndStatus->product_price . ' €'}}</span></p>
 									</div>
 								</div>
 								<div class="bottom-area d-flex px-3">
@@ -60,7 +76,7 @@
 										<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
 											<span><i class="ion-ios-menu"></i></span>
 										</a>
-										<a href="{{ url('/add-to-cart/' . $productFromTableByStatusAndCategoryNameORproductFromTableByStatus->id) }}" class="buy-now d-flex justify-content-center align-items-center mx-1">
+										<a href="{{ url('/add-to-cart/' . $productByStatusOrByCategoryAndStatus->id) }}" class="buy-now d-flex justify-content-center align-items-center mx-1">
 											<span><i class="ion-ios-cart"></i></span>
 										</a>
 										<a href="#" class="heart d-flex justify-content-center align-items-center ">

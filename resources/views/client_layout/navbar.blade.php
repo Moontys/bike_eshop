@@ -11,8 +11,8 @@
       <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav ml-auto">
 
-          <li class="nav-item active"><a href="{{ url('/') }}" class="nav-link">Home</a></li>
-          <li class="nav-item active"><a href="{{ url('/shop') }}" class="nav-link">Shop</a></li>
+          <li class="nav-item active"><a href="{{ url('/shop') }}" class="nav-link">Products</a></li>
+          <li class="nav-item active"><a href="{{ url('/') }}" class="nav-link">Contact</a></li>
           <li class="nav-item cta cta-colored"><a href="{{ url('/cart') }}" class="nav-link"><span class="icon-shopping_cart"></span>[{{ Session::has('cart') ? Session::get('cart')->totalQty : 0 }}]</a></li>
           
           @if (Session::has('client'))

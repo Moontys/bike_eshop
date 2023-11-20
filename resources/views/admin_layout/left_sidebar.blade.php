@@ -20,112 +20,144 @@
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
-                <li class="nav-item has-treeview">
-                    <a href="{{url('/admin')}}" class="nav-link {{request()->is('admin') ? 'active' : ''}}">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>
-                            DASHBOARD
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item has-treeview {{request()->is('all-categories') ? 'menu-open' : ''}} {{request()->is('add-category') ? 'menu-open' : ''}}">
-                    <a href="#" class="nav-link {{request()->is('all-categories') ? 'active' : ''}} {{request()->is('add-category') ? 'active' : ''}}">
-                        <i class="nav-icon fas fa-folder"></i>
-                        <p>
-                            CATEGORIES
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{url('/all-categories')}}" class="nav-link  {{request()->is('all-categories') ? 'active' : ''}}">
-                                <i class="far fa-file nav-icon"></i>
-                                <p>All Categories</p>
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{url('/add-category')}}" class="nav-link {{request()->is('add-category') ? 'active' : ''}}">
-                                <i class="far fa-file nav-icon"></i>
-                                <p>Add Category</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item has-treeview {{request()->is('all-sliders') ? 'menu-open' : ''}} {{request()->is('add-slider') ? 'menu-open' : ''}}">
-                    <a href="#" class="nav-link {{request()->is('all-sliders') ? 'active' : ''}} {{request()->is('add-slider') ? 'active' : ''}}">
-                        <i class="nav-icon fas fa-folder"></i>
-                        <p>
-                            SLIDERS
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{url('/all-sliders')}}" class="nav-link {{request()->is('all-sliders') ? 'active' : ''}}">
-                                <i class="far fa-file nav-icon"></i>
-                                <p>All Sliders</p>
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{url('/add-slider')}}" class="nav-link {{request()->is('add-slider') ? 'active' : ''}}">
-                                <i class="far fa-file nav-icon"></i>
-                                <p>Add Slider</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item has-treeview {{request()->is('all-products') ? 'menu-open' : ''}} {{request()->is('add-product') ? 'menu-open' : ''}}">
-                    <a href="#" class="nav-link {{request()->is('all-products') ? 'active' : ''}} {{request()->is('add-product') ? 'active' : ''}}">
-                        <i class="nav-icon fas fa-folder"></i>
-                        <p>
-                            PRODUCTS
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{url('/all-products')}}" class="nav-link {{request()->is('all-products') ? 'active' : ''}}">
-                                <i class="far fa-file nav-icon"></i>
-                                <p>All Products</p>
-                            </a>
-                        </li>
-                    </ul>
+            <div class="user-panel mt-3 pb-3 mb-3">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <li class="nav-item has-treeview">
+                        <a href="{{url('/admin')}}" class="nav-link {{request()->is('admin') ? 'active' : ''}}">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p>
+                                DASHBOARD
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item has-treeview {{request()->is('all-categories') ? 'menu-open' : ''}} {{request()->is('add-category') ? 'menu-open' : ''}}">
+                        <a href="#" class="nav-link {{request()->is('all-categories') ? 'active' : ''}} {{request()->is('add-category') ? 'active' : ''}}">
+                            <i class="nav-icon fas fa-folder"></i>
+                            <p>
+                                CATEGORIES
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{url('/all-categories')}}" class="nav-link  {{request()->is('all-categories') ? 'active' : ''}}">
+                                    <i class="far fa-file nav-icon"></i>
+                                    <p>All Categories</p>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{url('/add-category')}}" class="nav-link {{request()->is('add-category') ? 'active' : ''}}">
+                                    <i class="far fa-file nav-icon"></i>
+                                    <p>Add Category</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-treeview {{request()->is('all-sliders') ? 'menu-open' : ''}} {{request()->is('add-slider') ? 'menu-open' : ''}}">
+                        <a href="#" class="nav-link {{request()->is('all-sliders') ? 'active' : ''}} {{request()->is('add-slider') ? 'active' : ''}}">
+                            <i class="nav-icon fas fa-folder"></i>
+                            <p>
+                                SLIDERS
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{url('/all-sliders')}}" class="nav-link {{request()->is('all-sliders') ? 'active' : ''}}">
+                                    <i class="far fa-file nav-icon"></i>
+                                    <p>All Sliders</p>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{url('/add-slider')}}" class="nav-link {{request()->is('add-slider') ? 'active' : ''}}">
+                                    <i class="far fa-file nav-icon"></i>
+                                    <p>Add Slider</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-treeview {{request()->is('all-products') ? 'menu-open' : ''}} {{request()->is('add-product') ? 'menu-open' : ''}}">
+                        <a href="#" class="nav-link {{request()->is('all-products') ? 'active' : ''}} {{request()->is('add-product') ? 'active' : ''}}">
+                            <i class="nav-icon fas fa-folder"></i>
+                            <p>
+                                PRODUCTS
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{url('/all-products')}}" class="nav-link {{request()->is('all-products') ? 'active' : ''}}">
+                                    <i class="far fa-file nav-icon"></i>
+                                    <p>All Products</p>
+                                </a>
+                            </li>
+                        </ul>
 
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{url('/add-product')}}" class="nav-link {{request()->is('add-product') ? 'active' : ''}}">
-                                <i class="far fa-file nav-icon"></i>
-                                <p>Add product</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item has-treeview {{request()->is('all-orders') ? 'menu-open' : ''}}">
-                    <a href="#" class="nav-link {{request()->is('all-orders') ? 'active' : ''}}">
-                        <i class="nav-icon fas fa-folder"></i>
-                        <p>
-                            ORDERS
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{url('/all-orders')}}" class="nav-link {{request()->is('all-orders') ? 'active' : ''}}">
-                                <i class="far fa-file nav-icon"></i>
-                                <p>All Orders</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{url('/add-product')}}" class="nav-link {{request()->is('add-product') ? 'active' : ''}}">
+                                    <i class="far fa-file nav-icon"></i>
+                                    <p>Add Product</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-treeview {{request()->is('all-orders') ? 'menu-open' : ''}}">
+                        <a href="#" class="nav-link {{request()->is('all-orders') ? 'active' : ''}}">
+                            <i class="nav-icon fas fa-folder"></i>
+                            <p>
+                                ORDERS
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{url('/all-orders')}}" class="nav-link {{request()->is('all-orders') ? 'active' : ''}}">
+                                    <i class="far fa-file nav-icon"></i>
+                                    <p>All Orders</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </nav>
-        <!-- /.sidebar-menu -->
+
+        <nav class="mt-2">
+            <div class="user-panel mt-3 pb-3 mb-3">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <li class="nav-item has-treeview {{request()->is('') ? 'menu-open' : ''}} {{request()->is('add-product') ? 'menu-open' : ''}}">
+                        <a href="#" class="nav-link {{request()->is('') ? 'active' : ''}} {{request()->is('add-product') ? 'active' : ''}}">
+                            <i class="nav-icon fas fa-folder"></i>
+                            <p>
+                                DISCOUNTS
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{url('')}}" class="nav-link {{request()->is('all-products') ? 'active' : ''}}">
+                                    <i class="far fa-file nav-icon"></i>
+                                    <p>All Discounts</p>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{url('')}}" class="nav-link {{request()->is('add-product') ? 'active' : ''}}">
+                                    <i class="far fa-file nav-icon"></i>
+                                    <p>Add Discount</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
     </div>
-    <!-- /.sidebar -->
 </aside>

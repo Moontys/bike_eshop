@@ -1,91 +1,60 @@
 @extends('admin_layout.admin')
 
+
 @section('content')
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
 
+                @if (count($errors) > 0)
+                    <div class="alert alert-danger">
+                        @foreach ($errors->all() as $error)
+                        {{$error}}
+                        @endforeach
+                    </div>                          
+                @endif
 
-
-<!-- Content Wrapper. Contains page content -->
-<section class="content-wrapper">
-
-
-
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-        <div class="container-fluid">
-
-            
-        @if (count($errors) > 0)
-            <div class="alert alert-danger">
-                @foreach ($errors->all() as $error)
-                  {{$error}}
-                @endforeach
-            </div>                          
-        @endif
-
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>Category</h1>
-                </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Category</li>
-                    </ol>
-                </div>
             </div>
-        </div><!-- /.container-fluid -->
-    </section>
+        </section>
 
-    <!-- Main content -->
-    <section class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <!-- left column -->
-                <div class="col-md-12">
-                    <!-- jquery validation -->
-                    <div class="card card-primary">
-                        <div class="card-header">
-                            <h3 class="card-title">Edit Category</h3>
-                        </div>
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card card-primary">
 
-                        {!! Form::open(['action' => 'App\Http\Controllers\CategoryController@updateEditedCategory', 'method' => 'POST']) !!}
+                            <div class="card-header">
+                                <h3 class="card-title">Edit Category</h3>
+                            </div>
 
-                        {{ csrf_field() }}
+                            {!! Form::open(['action' => 'App\Http\Controllers\CategoryController@updateEditedCategory', 'method' => 'POST']) !!}
+                            {{ csrf_field() }}
 
-                        <div class="card-body">
-                            <div class="form-group">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    {{ Form::hidden('id', $categoryByUrlId->id) }}  <!-- hidden "id" for method: "updateEditedCategory" -->
 
-                                {{ Form::hidden('id', $category->id) }}
+                                    {{ Form::label('inputCategoryName', 'Category Name') }}
+                                    {{ Form::text('category_name', $categoryByUrlId->category_name, ['class' => 'form-control', 'placeholder' => 'Enter Category Name', 'id' => 'inputCategoryName']) }}
+                                </div>
 
-                                {{ Form::label('', 'Category name', ['for' => 'exampleInputEmail1']) }}
+                                <div class="card-footer">
+                                    {{ Form::submit('Update', ['class' => 'btn btn-primary']) }}
+                                </div>
 
-                                {{ Form::text('category_name', $category->category_name, ['class' => 'form-control', 'id' => 'exampleInputEmail1', 'placeholder' => 'Enter category']) }}
+                            {!! Form::close() !!}
                             </div>
                         </div>
-
-                        <div class="card-footer">
-
-                            {{ Form::submit('Update', ['class' => 'btn btn-primary']) }}
-
-                        </div>
-
-                        {!! Form::close() !!}
                     </div>
                 </div>
-                <!--/.col (left) -->
-                <!-- right column -->
-                <div class="col-md-6">
-                </div>
-                <!--/.col (right) -->
             </div>
-            <!-- /.row -->
-        </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
-</section>
-<!-- /.content-wrapper -->
-
+        </section>
+    </div>
 @endsection
+
+
 
 @section('scripts')
     <!-- jquery-validation -->

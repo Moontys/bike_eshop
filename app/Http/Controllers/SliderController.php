@@ -1,8 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Models\Slider;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
@@ -10,27 +14,28 @@ class SliderController extends Controller
 {
 
 
-    public function allSliders()
+    public function allSliders(): View
     {
-        $allSliders = Slider::All();
+        $sliders = Slider::All();
 
-        return view('admin.all_sliders')->with('allSlidersFromTable', $allSliders);
+        return view('admin.all_sliders')->with('allSliders', $sliders);
     }
 
 
-    public function addSlider()
+    public function addSlider(): View
     {
         return view('admin.add_slider');
     }
 
 
-
-    public function saveAddedSlider(Request $request)
+    public function saveAddedSlider(Request $request): RedirectResponse
     {
-        $this->validate($request, [
+        $this->validate(
+            $request,
+        [
             'slider_description1' => 'required',
             'slider_description2' => 'required',
-            'slider_image' => 'image|nullable|max:199999|required'
+            'slider_image' => 'image|nullable|max:199999|required',
         ]);
 
         $fileNameWithExt = $request->file('slider_image')->getClientOriginalName();
@@ -52,27 +57,28 @@ class SliderController extends Controller
     }
 
 
-    public function editSlider($id)
+    public function editSlider(int $id)
     {
-        $sliderFromTable = Slider::find($id);
+        $sliderById = Slider::find($id);
 
-        return view('admin.edit_slider')->with('sliderFromTableById', $sliderFromTable);
+        return view('admin.edit_slider')->with('sliderByUrlId', $sliderById);
     }
 
 
-
-    public function updateEditedSlider(Request $request)
+    public function updateEditedSlider(Request $request): RedirectResponse
     {
-        $this->validate($request, [
+        $this->validate(
+            $request,
+        [
             'slider_description1' => 'required',
             'slider_description2' => 'required',
-            'slider_image' => 'image|nullable|max:1999999'
+            'slider_image' => 'image|nullable|max:1999999',
         ]);
 
-        $sliderFromTable = Slider::find($request->input('id'));
+        $updateSliderByHiddenId = Slider::find($request->input('id'));    // finds hidden "id" in the "edit_slider.blade.php"
 
-        $sliderFromTable->slider_description1 = $request->input('slider_description1');
-        $sliderFromTable->slider_description2 = $request->input('slider_description2');
+        $updateSliderByHiddenId->slider_description1 = $request->input('slider_description1');
+        $updateSliderByHiddenId->slider_description2 = $request->input('slider_description2');
 
         if ($request->hasFile('slider_image'))
             {
@@ -83,37 +89,37 @@ class SliderController extends Controller
             // Upload image
             $path = $request->file('slider_image')->storeAs('public/slider_images', $fileNameToStore);
 
-            Storage::delete('public/slider_images/' . $sliderFromTable->slider_image);
+            Storage::delete('public/slider_images/' . $updateSliderByHiddenId->slider_image);
 
-            $sliderFromTable->slider_image = $fileNameToStore;
+            $updateSliderByHiddenId->slider_image = $fileNameToStore;
         }
-        $sliderFromTable->update();
+        $updateSliderByHiddenId->update();
 
         return redirect('/all-sliders')->with('status', 'The Slider Updated Successfully');
     }
 
 
 
-    public function deleteSlider($id)
+    public function deleteSlider(int $id): RedirectResponse
     {
-        $sliderFromTable = Slider::find($id);
+        $deleteSliderByUrlId = Slider::find($id);
 
-        Storage::delete('public/slider_images/' . $sliderFromTable->slider_image);
+        Storage::delete('public/slider_images/' . $deleteSliderByUrlId->slider_image);
 
-        $sliderFromTable->delete();
+        $deleteSliderByUrlId->delete();
 
         return redirect('/all-sliders')->with('status', 'The Slider Deleted Successfully');
     }
 
 
 
-    public function activateSlider($id)
+    public function activateSlider(int $id): RedirectResponse
     {
-        $sliderFromTable = Slider::find($id);
+        $activateSliderByUrlId = Slider::find($id);
 
-        $sliderFromTable->slider_status = 1;
+        $activateSliderByUrlId->slider_status = 1;
 
-        $sliderFromTable->update();
+        $activateSliderByUrlId->update();
 
         return back()->with('status', 'The Slider Activated Successfully');
     }
@@ -121,17 +127,16 @@ class SliderController extends Controller
 
 
 
-    public function unactivateSlider($id)
+    public function unactivateSlider(int $id): RedirectResponse
     {
-        $sliderFromTable = Slider::find($id);
+        $unactivateSliderByUrlId = Slider::find($id);
 
-        $sliderFromTable->slider_status = 0;
+        $unactivateSliderByUrlId->slider_status = 0;
 
-        $sliderFromTable->update();
+        $unactivateSliderByUrlId->update();
 
-        return back()->with('status', 'The Product Unactivated Successfully');
+        return back()->with('status', 'The Slider Unactivated Successfully');
     }
-
 }
 
 

@@ -24,7 +24,7 @@
                     </div>
                 @endif
 
-            </div><!-- /.container-fluid -->
+            </div>
         </section>
 
         <!-- Main content -->
@@ -38,35 +38,36 @@
                                 <h3 class="card-title">Add Product</h3>
                             </div>
 
-
                             {!! Form::open(['action' => 'App\Http\Controllers\ProductController@saveAddedProduct', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
                             {{ csrf_field() }}
-
                             
                             <div class="card-body">
                                 <div class="form-group">
-                                    {{ Form::label('inputProductName', 'Product name') }}
-                                    {{ Form::text('product_name', '', ['class' => 'form-control', 'placeholder' => 'Enter product name', 'id' => 'inputProductName']) }}
+                                    {{ Form::label('inputProductName', 'Product Name') }}
+                                    {{ Form::text('product_name', '', ['class' => 'form-control', 'placeholder' => 'Enter Product Name', 'id' => 'inputProductName']) }}
                                 </div>
 
                                 <div class="form-group">
-                                    {{ Form::label('inputProductPrice', 'Product price') }}
-                                    {{ Form::number('product_price', '', ['class' => 'form-control', 'id' => 'inputProductPrice', 'placeholder' => 'Enter product price']) }}
+                                    {{ Form::label('inputProductPrice', 'Product Price') }}
+                                    {{ Form::number('product_price', '', ['class' => 'form-control', 'placeholder' => 'Enter Product Price', 'id' => 'inputProductPrice']) }}
                                 </div>
 
                                 <div class="form-group">
-                                    {{ Form::label('efectForCategoriesInput', 'Product Category') }}
-                                    {{ Form::select('product_category_id', $allCategoryNamesFromTable, null, ['placeholder' => 'Select Product Category', 'class' => 'form-control select2', 'id' => 'efectForCategoriesInput']) }}
+                                    {{ Form::label('inputProductDiscount', 'Product Discount') }}
+                                    {{ Form::number('product_discount', '', ['class' => 'form-control', 'placeholder' => 'Enter Product Discount', 'id' => 'inputProductDiscount']) }}
                                 </div>
 
                                 <div class="form-group">
-                                    {{ Form::label('efectForImageInput', 'Product Image') }}
+                                    {{ Form::label('inputProductCategoryName', 'Product Category') }}
+                                    {{ Form::select('product_category_id', $allCategoryNames, null, ['placeholder' => 'Select Product Category', 'class' => 'form-control select2', 'id' => 'inputProductCategoryName']) }}
+                                </div>
+
+                                <div class="form-group">
+                                    {{ Form::label('inputProductImage', 'Product Image') }}
                                     <div class="input-group">
                                         <div class="custom-file">
-
-                                            {{ Form::file('product_image', ['class' => 'custom-file-input', 'id' => 'efectForImageInput']) }}
+                                            {{ Form::file('product_image', ['class' => 'custom-file-input', 'id' => 'inputProductImage']) }}
                                             {{ Form::label('inputProductImage', 'Choose file', ['class' => 'custom-file-label']) }}
-                                            
                                         </div>
                                     </div>
                                 </div>
@@ -76,6 +77,7 @@
                                 </div>
                             
                             {!! Form::close() !!}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -86,57 +88,57 @@
 
 
 
-    @section('scripts')
-    <!-- jquery-validation -->
-    <script src="{{ asset('backend/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
-    <script src="{{ asset('backend/plugins/jquery-validation/additional-methods.min.js') }}"></script>
-    <!-- AdminLTE App -->
-    <script src="{{ asset('backend/dist/js/adminlte.min.js') }}"></script>
-    <script src="{{ asset('backend/dist/js/demo.js') }}"></script>
-    <script>
-        $(function () {
-            $.validator.setDefaults({
-                submitHandler: function () {
-                    alert("Form successfully submitted!");
-                }
-            });
-            $('#quickForm').validate({
-                rules: {
-                    email: {
-                        required: true,
-                        email: true,
-                    },
-                    password: {
-                        required: true,
-                        minlength: 5
-                    },
-                    terms: {
-                        required: true
-                    },
-                },
-                messages: {
-                    email: {
-                        required: "Please enter an email address",
-                        email: "Please enter a valid email address"
-                    },
-                    password: {
-                        required: "Please provide a password",
-                        minlength: "Your password must be at least 5 characters long"
-                    },
-                    terms: "Please accept our terms"
-                },
-                errorElement: 'span',
-                errorPlacement: function (error, element) {
-                    error.addClass('invalid-feedback');
-                    element.closest('.form-group').append(error);
-                },
-                highlight: function (element, errorClass, validClass) {
-                    $(element).addClass('is-invalid');
-                },
-                unhighlight: function (element, errorClass, validClass) {
-                    $(element).removeClass('is-invalid');
-                }
-            });
+@section('scripts')
+<!-- jquery-validation -->
+<script src="{{ asset('backend/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+<script src="{{ asset('backend/plugins/jquery-validation/additional-methods.min.js') }}"></script>
+<!-- AdminLTE App -->
+<script src="{{ asset('backend/dist/js/adminlte.min.js') }}"></script>
+<script src="{{ asset('backend/dist/js/demo.js') }}"></script>
+<script>
+    $(function () {
+        $.validator.setDefaults({
+            submitHandler: function () {
+                alert("Form successfully submitted!");
+            }
         });
-    </script>
-    @endsection
+        $('#quickForm').validate({
+            rules: {
+                email: {
+                    required: true,
+                    email: true,
+                },
+                password: {
+                    required: true,
+                    minlength: 5
+                },
+                terms: {
+                    required: true
+                },
+            },
+            messages: {
+                email: {
+                    required: "Please enter an email address",
+                    email: "Please enter a valid email address"
+                },
+                password: {
+                    required: "Please provide a password",
+                    minlength: "Your password must be at least 5 characters long"
+                },
+                terms: "Please accept our terms"
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
+    });
+</script>
+@endsection

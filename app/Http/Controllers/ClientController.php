@@ -21,26 +21,6 @@ use Illuminate\View\View;
 
 class ClientController extends Controller
 {
-    public function home(): View
-    {
-        $allSliders = Slider::All()->where('slider_status', 1);
-
-        $allProducts = Product::All()->where('product_status', 1);
-
-        return view('client.home')->with('allSlidersFromTableByStatus', $allSliders)->with('allProductsFromTableByStatus', $allProducts);
-    }
-
-
-    public function shop(): View
-    {
-        $allCategories = Category::All();
-
-        $allProducts = Product::All()->where('product_status', 1);
-
-        return view('client.shop')->with('allCategoriesFromTable', $allCategories)->with('allProductsFromTableByStatusAndCategoryNameORallProductsFromTableByStatus', $allProducts);
-    }
-
-
 
     public function addToCart(int $id): RedirectResponse
     {
@@ -55,7 +35,7 @@ class ClientController extends Controller
     }
 
 
-    public function updateQuantity(Request $request, int $id)
+    public function updateQuantity(Request $request, int $id): RedirectResponse
     {
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
@@ -101,7 +81,7 @@ class ClientController extends Controller
 
 
 
-    public function checkout()
+    public function checkout(): View
     {
         if (!Session::has('client'))
         {
@@ -118,18 +98,21 @@ class ClientController extends Controller
 
 
     
-    public function signup()
+    public function signup(): View
     {
         return view('client.signup');
     }
 
 
 
-    public function createAccount(Request $request)
+    public function createAccount(Request $request): RedirectResponse
     {
-        $this->validate($request, [
+        $this->validate(
+            $request,
+            [
             'email' => 'email|required|unique:clients',
-            'password' => 'required|min:4']);
+            'password' => 'required|min:4'
+            ]);
 
         $client = new Client();
         $client->email = $request->input('email');
@@ -143,7 +126,7 @@ class ClientController extends Controller
 
 
 
-    public function login()
+    public function login(): View
     {
         return view('client.login');
     }
@@ -151,7 +134,7 @@ class ClientController extends Controller
 
 
 
-    public function logOut()
+    public function logOut(): RedirectResponse
     {
         Session::forget('client');
 
@@ -161,7 +144,7 @@ class ClientController extends Controller
 
 
 
-    public function accessAccount(Request $request)
+    public function accessAccount(Request $request): RedirectResponse
     {
         $this->validate($request, [
             'email' => 'email|required',
@@ -190,7 +173,7 @@ class ClientController extends Controller
 
 
 
-    public function allOrders()
+    public function allOrders(): View
     {
         $allOrders = Order::All();
 
@@ -207,7 +190,7 @@ class ClientController extends Controller
   
 
 
-    public function postCheckout(Request $request)
+    public function postCheckout(Request $request): RedirectResponse
     {
         try
         {
@@ -239,9 +222,8 @@ class ClientController extends Controller
     }
 
 
-    private function checkoutData()
+    private function checkoutData(): array
     {
-
         $oldCart = Session::has('cart')? Session::get('cart'): null;
 
         $cart = new Cart($oldCart);
@@ -270,7 +252,8 @@ class ClientController extends Controller
         return $checkoutData;
     }
 
-    public function paymentSuccess(Request $request)
+
+    public function paymentSuccess(Request $request): RedirectResponse
     {
         try
         {

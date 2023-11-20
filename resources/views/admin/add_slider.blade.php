@@ -2,9 +2,8 @@
 
 
 @section('content')
- <!-- Content Wrapper. Contains page content -->
+  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
 
@@ -22,7 +21,7 @@
           </div>
         @endif
 
-      </div><!-- /.container-fluid -->
+      </div>
     </section>
 
     <!-- Main content -->
@@ -30,6 +29,7 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-12">
+
             <div class="card card-warning">
 
               <div class="card-header">
@@ -41,23 +41,21 @@
 
               <div class="card-body">
                 <div class="form-group">
-                  {{ Form::label('inputProductName', 'Slider Description 1') }}
-                  {{ Form::text('slider_description1', '', ['class' => 'form-control', 'placeholder' => 'Enter Description One', 'id' => 'inputProductName']) }}
+                  {{ Form::label('inputSliderDescriptionOne', 'Slider Description 1') }}
+                  {{ Form::text('slider_description1', '', ['class' => 'form-control', 'placeholder' => 'Enter Description One', 'id' => 'inputSliderDescriptionOne']) }}
                 </div>
 
                 <div class="form-group">
-                  {{ Form::label('inputProductName', 'Slider Description 2') }}
-                  {{ Form::text('slider_description2', '', ['class' => 'form-control', 'placeholder' => 'Enter Description Two', 'id' => 'inputProductName']) }}
+                  {{ Form::label('inputSliderDescriptionTwo', 'Slider Description 2') }}
+                  {{ Form::text('slider_description2', '', ['class' => 'form-control', 'placeholder' => 'Enter Description Two', 'id' => 'inputSliderDescriptionTwo']) }}
                 </div>
 
                 <div class="form-group">
-                  {{ Form::label('efectsForImageInput', 'Slider Image') }}
+                  {{ Form::label('inputSliderImage', 'Slider Image') }}
                   <div class="input-group">
                     <div class="custom-file">
-
-                      {{ Form::file('slider_image', ['class' => 'custom-file-input', 'id' => 'efectsForImageInput']) }}
-                      {{ Form::label('inputProductImage', 'Choose file', ['class' => 'custom-file-label']) }}
-
+                      {{ Form::file('slider_image', ['class' => 'custom-file-input', 'id' => 'inputSliderImage']) }}
+                      {{ Form::label('inputSliderImage', 'Choose file', ['class' => 'custom-file-label']) }}
                     </div>
                   </div>
                 </div>
@@ -66,8 +64,9 @@
                   {{ Form::submit('Save', ['class' => 'btn btn-success']) }}
                 </div>
               
-                {!! Form::close() !!}
+              {!! Form::close() !!} 
               </div>
+            </div>
           </div>
         </div>
       </div>

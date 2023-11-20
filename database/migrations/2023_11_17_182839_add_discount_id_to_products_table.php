@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddCategoryIdToProductsTable extends Migration
+class AddDiscountIdToProductsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddCategoryIdToProductsTable extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->integer('category_id')->unsigned()->nullable();
+            $table->integer('discount_id')->unsigned()->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ class AddCategoryIdToProductsTable extends Migration
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->dropColumn('category_id');
+            $table->dropColumn('discount_id');
         });
     }
 }

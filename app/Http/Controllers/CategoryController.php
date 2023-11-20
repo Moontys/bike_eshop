@@ -1,21 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class CategoryController extends Controller
 {
-
     public function allCategories()
     {
         $categories = Category::All();
 
-        return view('admin.all_categories')->with('allCategoriesFormTable', $categories);
+        return view('admin.all_categories')->with('allCategories', $categories);
     }
-
 
 
     public function addCategory()
@@ -24,61 +26,62 @@ class CategoryController extends Controller
     }
 
 
-
-    public function saveAddedCategory(Request $request)
+    public function saveAddedCategory(Request $request): RedirectResponse
     {
-        $this->validate($request, ['category_name' => 'required|unique:categories']);
+        $this->validate(
+            $request,
+        [
+            'category_name' => 'required|unique:categories',
+        ]);
     
-        $category = new Category();
-        $category->category_name = $request->input('category_name');
-        $category->save();
+        $newCategory = new Category();
+        $newCategory->category_name = $request->input('category_name');
+        $newCategory->save();
     
         return back()->with('status', 'The Category "' . $request->input('category_name') . '" Added Successfully');
     }
-    
 
 
-    public function editCategory($id)
+    public function editCategory(int $id): View
     {
-        $category = Category::find($id);
+        $categoryById = Category::find($id);
 
-        return view('admin.edit_category')->with('category', $category);
+        return view('admin.edit_category')->with('categoryByUrlId', $categoryById);
     }
 
 
-
-    public function updateEditedCategory(Request $request)
+    public function updateEditedCategory(Request $request): RedirectResponse
     {
-        $this->validate($request, ['category_name' => 'required']);
+        $this->validate(
+            $request,
+        [
+            'category_name' => 'required',
+        ]);
+        
+        $updateCategoryByHiddenId = Category::find($request->input('id'));    // finds hidden "id" in the "edit_category.blade.php"
 
+        $updateCategoryByHiddenId->category_name = $request->input('category_name');
 
-        $category = Category::find($request->input('id'));
-
-        $category->category_name = $request->input('category_name');
-
-        $category->update();
+        $updateCategoryByHiddenId->update();
 
         return redirect('/all-categories')->with('status', 'The Category "' . $request->input('category_name') . '" Updated Successfully');
     }
 
 
-
-    public function deleteCategory($id)
+    public function deleteCategory(int $id): RedirectResponse
     {
-        $productCountByCategoryId = Product::where('category_id', $id)->count();
+        $productCountByUrlId = Product::where('category_id', $id)->count();
 
-        // var_dump($productCountByCategoryId); die;
-
-        if ($productCountByCategoryId > 0) {
-            return back('status', 'Category Can Not Be Delete Because There are Products In it! Please Give For Those Produts New Category');
+        if ($productCountByUrlId > 0) {
+            return back()->with('error', 'Cannot Delete The Category Because There Are Products Assigned To It. Please Reassign These Products To A New Category Before Deleting');
         }
 
-        $category = Category::find($id);
+        $deleteCategoryByUrlId = Category::find($id);
 
-        $categoryNameFromTableById = $category->category_name;
+        $categoryName = $deleteCategoryByUrlId->category_name;
 
-        $category->delete();
+        $deleteCategoryByUrlId->delete();
 
-        return back()->with('status', 'The Category "' . $categoryNameFromTableById . '" Deleted Successfully');
+        return back()->with('status', 'The Category "' . $categoryName . '" Deleted Successfully');
     }
 }

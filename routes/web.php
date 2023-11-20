@@ -15,9 +15,9 @@ use App\Http\Controllers\SliderController;
 
 
 
-Route::get('/', [ClientController::class, 'home']);
+// Route::get('/', [ClientController::class, 'home']);
 
-Route::get('/shop', [ClientController::class, 'shop']);
+
 
 Route::get('/cart', [ClientController::class, 'cart']);
 
@@ -105,6 +105,12 @@ Route::get('/activate-product/{id}', [ProductController::class, 'activateProduct
 Route::get('/unactivate-product/{id}', [ProductController::class, 'unactivateProduct']);
 
 Route::get('/products-by-category/{category_name}', [ProductController::class, 'productsByCategory']);
+
+Route::get('/', [ProductController::class, 'shop']);
+
+Route::get('/shop', [ProductController::class, 'shop']);
+
+// Route::get('/products-by-category/All', [ProductController::class, 'shop']);
 
 
 

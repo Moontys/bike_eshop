@@ -1,26 +1,21 @@
 @extends('admin_layout.admin')
 
 
-
 @section('content')
 
-<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
-    <!-- Content Header (Page header) -->
+
+  <div class="content-wrapper">
+  <!-- Content Wrapper. Contains page content -->
     <section class="content-header">
       <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>Ordes</h1>
+
+        @if (Session::has('error'))
+          <div class="alert alert-danger">
+            {{ Session::get('error') }}
           </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Orders</li>
-            </ol>
-          </div>
-        </div>
-      </div><!-- /.container-fluid -->
+        @endif
+
+      </div>
     </section>
 
     <!-- Main content -->
@@ -28,74 +23,52 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
-            <div class="card">
+            <div class="card card-dark">
+
               <div class="card-header">
                 <h3 class="card-title">All Orders</h3>
               </div>
 
-              @if (Session::has('error'))
-                <div class="alert alert-danger">
-                  {{ Session::get('error') }}
-                </div>
-              @endif
-
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
-                  <tr>
-                    <th>Date</th>
-                    <th>Address</th>
-                    <th>Client Names</th>
-                    <th>Orders</th>
-                    <th>Actions</th>
-                  </tr>
+                    <tr>
+                      <th>Date</th>
+                      <th>Address</th>
+                      <th>Client Names</th>
+                      <th>Orders</th>
+                      <th>Actions</th>
+                    </tr>
                   </thead>
                   <tbody>
 
                     @foreach ($allOrdersFromTable as $orderFromTable)
-                    <tr>
+                      <tr>
                         <td>{{ $orderFromTable->created_at }}</td>
                         <td>{{ $orderFromTable->order_address }}</td>
                         <td>{{ $orderFromTable->order_name }}</td>
+
                         <td>
- 
                           @foreach ($orderFromTable->order_cart->items as $item)
                             {{ $item['product_name'] . ', '}}
                           @endforeach
-
                         </td>
+                        
                         <td>
                           <a href="{{ url('/view-pdf-order/' . $orderFromTable->id) }}" class="btn btn-primary"><i class="nav-icon fas fa-eye"></i></a>
                         </td>
-                    </tr>
+                      </tr>
                     @endforeach
 
                   </tbody>
-                  <tfoot>
-                  <tr>
-                    <th>Date</th>
-                    <th>Address</th>
-                    <th>Client Names</th>
-                    <th>Orders</th>
-                    <th>Actions</th>
-                  </tr>
-                  </tfoot>
                 </table>
               </div>
-              <!-- /.card-body -->
             </div>
-            <!-- /.card -->
           </div>
-          <!-- /.col -->
         </div>
-        <!-- /.row -->
       </div>
-      <!-- /.container-fluid -->
     </section>
-    <!-- /.content -->
   </div>
-  <!-- /.content-wrapper -->
-
 @endsection
 
 

@@ -42,7 +42,7 @@ class Cart
     }
 
 
-    public function updateQuantity($id, $qty){
+    public function updateQuantity($id, $qty) {
         $this->totalQty -= $this->items[$id]['qty'];
         $this->totalPrice -= $this->items[$id]['product_price'] * $this->items[$id]['qty'];
         $this->items[$id]['qty'] = $qty;

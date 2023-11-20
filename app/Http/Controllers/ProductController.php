@@ -6,30 +6,31 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Slider;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\View\View;
-use SebastianBergmann\Type\VoidType;
 
 class ProductController extends Controller
-
-
 {
     public function allProducts(): View
     {
-        $allProducts = Product::All();
+        $products = Product::All();
 
-        return view('admin.all_products')->with('allProductsFromTable', $allProducts);
+        return view('admin.all_products')->with('allProducts', $products);
     }
 
-    public function addProduct()
-    {   // ('category_name', 'id') ? 'category_name' - ? 'id' - ? Kudie?!
+
+    public function addProduct(): View
+    {
         $categoryNames = Category::All()->pluck('category_name', 'id');
 
-        return view('admin.add_product')->with('allCategoryNamesFromTable', $categoryNames);
+        return view('admin.add_product')->with('allCategoryNames', $categoryNames);
     }
 
-    public function saveAddedProduct(Request $request)
+
+    public function saveAddedProduct(Request $request): RedirectResponse
     {
         $this->validate($request, [
             'product_name' => 'required',
@@ -44,12 +45,11 @@ class ProductController extends Controller
             $extension = $request->file('product_image')->getClientOriginalExtension();
             $fileNameToStore = $fileName . '_' . time() . '.' . $extension;
     
-            // Upload image
             $path = $request->file('product_image')->storeAs('public/product_images', $fileNameToStore);
-        }
-        else {
+        } else {
             $fileNameToStore = 'no_image.png';
         }
+
         $newProduct = new Product();
         $newProduct->product_name = $request->input('product_name');
         $newProduct->product_price = $request->input('product_price');
@@ -64,18 +64,18 @@ class ProductController extends Controller
 
 
 
-    public function editProduct($id)
+    public function editProduct(int $id): View
     {
         $productById = Product::find($id);
 
         $categoryNames = Category::All()->pluck('category_name', 'id');
 
-        return view('admin.edit_product')->with('productFromTableById', $productById)->with('allCategoryNamesFromTable', $categoryNames);
+        return view('admin.edit_product')->with('productByUrlId', $productById)->with('allCategoryNames', $categoryNames);
     }
 
 
 
-    public function updateEditedProduct(Request $request)
+    public function updateEditedProduct(Request $request): RedirectResponse
     {
         $this->validate(
             $request, 
@@ -87,11 +87,11 @@ class ProductController extends Controller
             ],
         );
 
-        $product = Product::find($request->input('id'));
+        $updateProductByHiddenId = Product::find($request->input('id'));    // finds hidden "id" in the "edit_product.blade.php"
 
-        $product->product_name = $request->input('product_name');
-        $product->product_price = $request->input('product_price');
-        $product->category_id = (int)$request->input('product_category');
+        $updateProductByHiddenId->product_name = $request->input('product_name');
+        $updateProductByHiddenId->product_price = $request->input('product_price');
+        $updateProductByHiddenId->category_id = (int)$request->input('product_category');
 
         if ($request->hasFile('product_image')) {
             $fileNameWithExt = $request->file('product_image')->getClientOriginalName();
@@ -99,75 +99,83 @@ class ProductController extends Controller
             $extension = $request->file('product_image')->getClientOriginalExtension();
             $fileNameToStore = $fileName . '_' . time() . '.' . $extension;
             
-            // Upload image
             $path = $request->file('product_image')->storeAs('public/product_images', $fileNameToStore);
 
-            if ($product->product_image != 'no_image.png') {
-                Storage::delete('public/product_images/' . $product->product_image);
+            if ($updateProductByHiddenId->product_image != 'no_image.png') {
+                Storage::delete('public/product_images/' . $updateProductByHiddenId->product_image);
             }
 
-            $product->product_image = $fileNameToStore;
+            $updateProductByHiddenId->product_image = $fileNameToStore;
         }
 
-        $product->update();
+        $updateProductByHiddenId->update();
 
         return redirect('/all-products')->with('status', 'The Product "' . $request->input('product_name') . '" Updated Successfully');
     }
 
 
 
-    public function deleteProduct($id)
+    public function deleteProduct(int $id): RedirectResponse
     {
-        $product = Product::find($id);
+        $deleteProductByUrlId = Product::find($id);
 
-        if ($product->product_image != 'no_image.png')
+        if ($deleteProductByUrlId->product_image != 'no_image.png')
         {
-            Storage::delete('public/product_images/' . $product->product_image);
+            Storage::delete('public/product_images/' . $deleteProductByUrlId->product_image);
         }
 
-        $product->delete();
+        $deleteProductByUrlId->delete();
 
-        return back()->with('status', 'The Product "' . $product->product_name . '" Deleted Successfully');
+        return back()->with('status', 'The Product "' . $deleteProductByUrlId->product_name . '" Deleted Successfully');
     }
 
 
     
-    public function activateProduct($id)
+    public function activateProduct(int $id): RedirectResponse
     {
-        $product = Product::find($id);
+        $activateProductByUrlId = Product::find($id);
 
-        $product->product_status = 1;
+        $activateProductByUrlId->product_status = 1;
 
-        $product->update();
+        $activateProductByUrlId->update();
 
-        return back()->with('status', 'The Product "' . $product->product_name . '" Activated Successfully');
+        return back()->with('status', 'The Product "' . $activateProductByUrlId->product_name . '" Activated Successfully');
     }
 
 
 
-    public function unactivateProduct($id)
+    public function unactivateProduct(int $id): RedirectResponse
     {
-        $product = Product::find($id);
+        $unactivateProductByUrlId = Product::find($id);
 
-        $product->product_status = 0;
+        $unactivateProductByUrlId->product_status = 0;
 
-        $product->update();
+        $unactivateProductByUrlId->update();
 
-        return back()->with('status', 'The Product "' . $product->product_name . '" Unactivated Successfully');
+        return back()->with('status', 'The Product "' . $unactivateProductByUrlId->product_name . '" Unactivated Successfully');
     }
-
 
 
     public function productsByCategory($category_name): View
     {
-        $allProducts = Product::join('categories', 'categories.id', '=', 'products.category_id')->where('categories.category_name', $category_name)->where('product_status', 1)->get();
+        $productsByCategoryAndStatus = Product::join('categories', 'categories.id', '=', 'products.category_id')->where('categories.category_name', $category_name)->where('product_status', 1)->get();
 
-        $allCategories = Category::All();
+        $categories = Category::All();
 
-        return view('client.shop')->with('allProductsFromTableByStatusAndCategoryNameORallProductsFromTableByStatus', $allProducts)->with('allCategoriesFromTable', $allCategories);
+        return view('client.shop')->with('allProductsByStatusOrByCategoryAndStatus', $productsByCategoryAndStatus)->with('allCategories', $categories);
     }
 
 
+    public function shop(): View
+    {
+        $categories = Category::All();
+
+        $productsByStatus = Product::All()->where('product_status', 1);
+
+        $slidersByStatus = Slider::All()->where('slider_status', 1);
+
+        return view('client.shop')->with('allCategories', $categories)->with('allProductsByStatusOrByCategoryAndStatus', $productsByStatus)->with('allSlidersByStatus', $slidersByStatus);
+    }
 
 
 

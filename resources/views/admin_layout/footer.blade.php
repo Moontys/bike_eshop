@@ -1,13 +1,15 @@
 <footer class="main-footer">
-    <strong>Copyright &copy; 2014-2020 <a href="https://adminlte.io">StagBeetle & Co</a>.</strong>
-    All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 3.1.0-pre
-    </div>
-  </footer>
 
-  <!-- Control Sidebar -->
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved <i class="icon-heart color-danger" aria-hidden="true"></i> by <a href="https://www.google.com/" target="_blank"> Stag Beetle Company, same-minded Friends & Forest </a></p>     
+    </div>
+  </div>
+
+</footer>
+
+  {{-- <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
   </aside>
-  <!-- /.control-sidebar -->
+  <!-- /.control-sidebar --> --}}

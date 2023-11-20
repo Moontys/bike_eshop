@@ -20,7 +20,7 @@
                     </div>                          
                 @endif
 
-            </div><!-- /.container-fluid -->
+            </div>
         </section>
 
         <!-- Main content -->
@@ -34,22 +34,21 @@
                                 <h3 class="card-title">Add Category</h3>
                             </div>
 
-
                             {!! Form::open(['action' => 'App\Http\Controllers\CategoryController@saveAddedCategory', 'method' => 'POST']) !!}
                             {{ csrf_field() }}
 
-
                             <div class="card-body">
                                 <div class="form-group">
-                                    {{ Form::label('', 'Category name', ['for' => 'exampleInputEmail1']) }}
-                                    {{ Form::text('category_name', '', ['class' => 'form-control', 'id' => 'exampleInputEmail1', 'placeholder' => 'Enter category']) }}
+                                    {{ Form::label('inputCategoryName', 'Category name') }}
+                                    {{ Form::text('category_name', '', ['class' => 'form-control', 'placeholder' => 'Enter Category Name', 'id' => 'inputCategoryName']) }}
                                 </div>
 
                                 <div class="card-footer">
                                     {{ Form::submit('Save', ['class' => 'btn btn-primary']) }}
                                 </div>
-                            </div>
+                            
                             {!! Form::close() !!}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -57,6 +56,8 @@
         </section>
     </div>
 @endsection
+
+
 
 @section('scripts')
     <!-- jquery-validation -->
