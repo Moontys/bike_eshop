@@ -9,6 +9,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\SliderController;
 
@@ -110,8 +111,13 @@ Route::get('/', [ProductController::class, 'shop']);
 
 Route::get('/shop', [ProductController::class, 'shop']);
 
+Route::get('/display-product/{id}', [ProductController::class, 'displayProduct']);
+
 // Route::get('/products-by-category/All', [ProductController::class, 'shop']);
 
+
+
+Route::get('/all-discouts', [DiscountController::class, 'allDiscounts']);
 
 
 

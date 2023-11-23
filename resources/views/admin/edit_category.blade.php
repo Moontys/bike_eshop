@@ -1,5 +1,9 @@
 @extends('admin_layout.admin')
 
+@section('title')
+    Edit Category
+@endsection
+
 
 @section('content')
     <div class="content-wrapper">

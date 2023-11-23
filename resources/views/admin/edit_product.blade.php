@@ -1,7 +1,7 @@
 @extends('admin_layout.admin')
 
 @section('title')
-    ADD NEW BICYCLE
+    Edit Product
 @endsection
 
 @section('content')
@@ -62,7 +62,7 @@
 
                                 <div class="form-group">
                                     {{ Form::label('inputProductCategoryName', 'Product Category') }}
-                                    {{ Form::select('product_category', $allCategoryNames, $productByUrlId->product_category, ['class' => 'form-control select', 'id' => 'inputProductCategoryName']) }}
+                                    {{ Form::select('product_category', $allCategoryNames, $productByUrlId->category_id, ['class' => 'form-control select', 'id' => 'inputProductCategoryName']) }}
                                 </div>
 
                                 <div class="form-group">

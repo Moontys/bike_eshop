@@ -99,7 +99,7 @@
 
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{url('/add-product')}}" class="nav-link {{request()->is('add-product') ? 'active' : ''}}">
+                                <a href="{{ url('/add-product') }}" class="nav-link {{request()->is('add-product') ? 'active' : ''}}">
                                     <i class="far fa-file nav-icon"></i>
                                     <p>Add Product</p>
                                 </a>
@@ -140,7 +140,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{url('')}}" class="nav-link {{request()->is('all-products') ? 'active' : ''}}">
+                                <a href="{{ url('/all-discounts') }}" class="nav-link {{request()->is('all-products') ? 'active' : ''}}">
                                     <i class="far fa-file nav-icon"></i>
                                     <p>All Discounts</p>
                                 </a>

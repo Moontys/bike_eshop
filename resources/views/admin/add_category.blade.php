@@ -1,5 +1,11 @@
 @extends('admin_layout.admin')
 
+
+@section('title')
+    Add Category
+@endsection
+
+
 @section('content')
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->

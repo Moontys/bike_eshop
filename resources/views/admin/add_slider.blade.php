@@ -1,6 +1,11 @@
 @extends('admin_layout.admin')
 
 
+@section('title')
+    All Slider
+@endsection
+
+
 @section('content')
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">

@@ -1,6 +1,11 @@
 @extends('admin_layout.admin')
 
 
+@section('title')
+    All Orders
+@endsection
+
+
 @section('content')
 
 

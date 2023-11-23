@@ -1,6 +1,11 @@
 @extends('admin_layout.admin')
 
 
+@section('title')
+    All Categories
+@endsection
+
+
 @section('content')
 
   {{ Form::hidden('', $increment = 1) }}

@@ -2,9 +2,7 @@
 
 
 @section('title')
-
     Shop
-
 @endsection
 
 
@@ -60,7 +58,7 @@
 
 					<div class="col-md-6 col-lg-3 ftco-animate">
 						<div class="product">
-							<a href="#" class="img-prod"><img class="img-fluid" src="{{ asset('storage/product_images/' . $productByStatusOrByCategoryAndStatus->product_image) }}" alt="Colorlib Template">
+							<a href="{{ url('/display-product/' . $productByStatusOrByCategoryAndStatus->id) }}" class="img-prod"><img class="img-fluid" src="{{ asset('storage/product_images/' . $productByStatusOrByCategoryAndStatus->product_image) }}" alt="Image">
 								<span class="status">{{ $productByStatusOrByCategoryAndStatus->discount->discount_percentage ?? 0 . '%'}}</span>
 								<div class="overlay"></div>
 							</a>
@@ -68,19 +66,16 @@
 								<h3><a href="3">{{ $productByStatusOrByCategoryAndStatus->product_name }}</a></h3>
 								<div class="d-flex">
 									<div class="pricing">
-										<p class="price"><span class="mr-2 price-dc"></span><span class="price-sale">{{ $productByStatusOrByCategoryAndStatus->product_price . ' €'}}</span></p>
+										<p class="price"><span class="mr-2 price-dc"></span><span class="price-sale">{{ $productByStatusOrByCategoryAndStatus->product_price . ' €' }}</span></p>
 									</div>
 								</div>
 								<div class="bottom-area d-flex px-3">
 									<div class="m-auto d-flex">
-										<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+										<a href="{{ url('/display-product/' . $productByStatusOrByCategoryAndStatus->id) }}" class="add-to-cart d-flex justify-content-center align-items-center text-center">
 											<span><i class="ion-ios-menu"></i></span>
 										</a>
 										<a href="{{ url('/add-to-cart/' . $productByStatusOrByCategoryAndStatus->id) }}" class="buy-now d-flex justify-content-center align-items-center mx-1">
 											<span><i class="ion-ios-cart"></i></span>
-										</a>
-										<a href="#" class="heart d-flex justify-content-center align-items-center ">
-											<span><i class="ion-ios-heart"></i></span>
 										</a>
 									</div>
 								</div>
@@ -92,21 +87,21 @@
 			</div>
 
 
-    	<div class="row mt-5">
-          <div class="col text-center">
-            <div class="block-27">
-              <ul>
-                <li><a href="#">&lt;</a></li>
-                <li class="active"><span>1</span></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&gt;</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
+			<div class="row mt-5">
+				<div class="col text-center">
+					<div class="block-27">
+						<ul>
+							<li><a href="#">&lt;</a></li>
+							<li class="active"><span>1</span></li>
+							<li><a href="#">2</a></li>
+							<li><a href="#">3</a></li>
+							<li><a href="#">4</a></li>
+							<li><a href="#">5</a></li>
+							<li><a href="#">&gt;</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
     	</div>
     </section>
 <!-- end content -->

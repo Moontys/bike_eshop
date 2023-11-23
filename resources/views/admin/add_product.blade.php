@@ -1,8 +1,10 @@
 @extends('admin_layout.admin')
 
+
 @section('title')
-    ADD NEW BICYCLE
+    Add Product
 @endsection
+
 
 @section('content')
     <div class="content-wrapper">

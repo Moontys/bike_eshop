@@ -1,5 +1,9 @@
 @extends('admin_layout.admin')
 
+@section('title')
+    All Sliders
+@endsection
+
 
 @section('content')
 

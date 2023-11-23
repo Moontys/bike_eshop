@@ -158,7 +158,7 @@ class ProductController extends Controller
 
     public function productsByCategory($category_name): View
     {
-        $productsByCategoryAndStatus = Product::join('categories', 'categories.id', '=', 'products.category_id')->where('categories.category_name', $category_name)->where('product_status', 1)->get();
+        $productsByCategoryAndStatus = Product::select('products.*')->join('categories', 'categories.id', '=', 'products.category_id')->where('categories.category_name', $category_name)->where('product_status', 1)->get();
 
         $categories = Category::All();
 
@@ -178,5 +178,10 @@ class ProductController extends Controller
     }
 
 
+    public function displayProduct(int $id): View
+    {
+        $productById = Product::find($id);
 
+        return view('client.display_product')->with('productByUrlId', $productById);
+    }
 }
