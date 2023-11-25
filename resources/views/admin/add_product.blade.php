@@ -55,13 +55,18 @@
                                 </div>
 
                                 <div class="form-group">
-                                    {{ Form::label('inputProductDiscount', 'Product Discount') }}
-                                    {{ Form::number('product_discount', '', ['class' => 'form-control', 'placeholder' => 'Enter Product Discount', 'id' => 'inputProductDiscount']) }}
+                                    {{ Form::label('inputProductDiscountName', 'Product Discount') }}
+                                    {{ Form::select('product_discount', $allDiscountNames, null, ['class' => 'form-control select2', 'placeholder' => 'Select Product Discount Name', 'id' => 'inputProductDiscountName']) }}
                                 </div>
 
                                 <div class="form-group">
-                                    {{ Form::label('inputProductCategoryName', 'Product Category') }}
-                                    {{ Form::select('product_category_id', $allCategoryNames, null, ['placeholder' => 'Select Product Category', 'class' => 'form-control select2', 'id' => 'inputProductCategoryName']) }}
+                                    {{ Form::label('inputProductCategoryName', 'Product Category Name') }}
+                                    {{ Form::select('products_category_id_categories_id', $allCategoryNames, null, ['class' => 'form-control select2', 'placeholder' => 'Select Product Category Name', 'id' => 'inputProductCategoryName']) }}
+                                </div>
+
+                                <div class="form-group">
+                                    {{ Form::label('inputProductDescription', 'Product Description') }}
+                                    {{ Form::textarea('product_description', '', ['class' => 'form-control', 'placeholder' => 'Enter Product Description', 'id' => 'inputProductDescription']) }}
                                 </div>
 
                                 <div class="form-group">

@@ -58,7 +58,7 @@
                         <td>{{ $product->product_name }}</td>
                         <td>{{ $product->category->category_name }}</td>
                         <td>{{ $product->product_price . ' €' }}</td>
-                        <td>{{ $product->discount->discount_percentage ?? 0 . '%'}}</td>
+                        <td>{{ $product->discount->discount_percentage ?? 0 }}</td>
                         <td>
 
                           @if ($product->product_status == 1)

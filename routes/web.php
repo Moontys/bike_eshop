@@ -117,7 +117,7 @@ Route::get('/display-product/{id}', [ProductController::class, 'displayProduct']
 
 
 
-Route::get('/all-discouts', [DiscountController::class, 'allDiscounts']);
+Route::get('/all-discounts', [DiscountController::class, 'allDiscounts']);
 
 
 

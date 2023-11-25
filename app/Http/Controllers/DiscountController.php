@@ -13,8 +13,8 @@ class DiscountController extends Controller
 {
     public function allDiscounts(): View
     {
-        // $discounts = Discount::All();
+        $discounts = Discount::All();
 
-        return view('admin.all_discounts');
+        return view('admin.all_discounts')->with('allDiscounts', $discounts);
     }
 }

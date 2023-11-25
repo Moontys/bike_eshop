@@ -59,7 +59,7 @@
 					<div class="col-md-6 col-lg-3 ftco-animate">
 						<div class="product">
 							<a href="{{ url('/display-product/' . $productByStatusOrByCategoryAndStatus->id) }}" class="img-prod"><img class="img-fluid" src="{{ asset('storage/product_images/' . $productByStatusOrByCategoryAndStatus->product_image) }}" alt="Image">
-								<span class="status">{{ $productByStatusOrByCategoryAndStatus->discount->discount_percentage ?? 0 . '%'}}</span>
+								<span class="status">{{ $productByStatusOrByCategoryAndStatus->discount->discount_percantage ?? 0 . }} %</span>
 								<div class="overlay"></div>
 							</a>
 							<div class="text py-3 pb-4 px-3 text-center">

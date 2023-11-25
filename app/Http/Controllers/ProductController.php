@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Discount;
 use App\Models\Slider;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -18,7 +19,8 @@ class ProductController extends Controller
     {
         $products = Product::All();
 
-        return view('admin.all_products')->with('allProducts', $products);
+        return view('admin.all_products')
+            ->with('allProducts', $products);
     }
 
 
@@ -26,7 +28,11 @@ class ProductController extends Controller
     {
         $categoryNames = Category::All()->pluck('category_name', 'id');
 
-        return view('admin.add_product')->with('allCategoryNames', $categoryNames);
+        $discountNames = Discount::All()->pluck('discount_name', 'id');
+
+        return view('admin.add_product')
+        ->with('allCategoryNames', $categoryNames)
+        ->with('allDiscountNames', $discountNames);
     }
 
 
@@ -35,7 +41,7 @@ class ProductController extends Controller
         $this->validate($request, [
             'product_name' => 'required',
             'product_price' => 'required',
-            'product_category_id' => 'required',
+            'products_category_id_categories_id' => 'required',
             'product_image' => 'image|nullable|max:1999',
         ]);
 
@@ -53,8 +59,10 @@ class ProductController extends Controller
         $newProduct = new Product();
         $newProduct->product_name = $request->input('product_name');
         $newProduct->product_price = $request->input('product_price');
-        $newProduct->category_id = (int)$request->input('product_category_id');
+        $newProduct->discount_id = $request->input('product_discount');
+        $newProduct->category_id = (int)$request->input('products_category_id_categories_id');
         $newProduct->product_status = 1;
+        $newProduct->product_description = $request->input('product_description');
         $newProduct->product_image = $fileNameToStore;
         
         $newProduct->save();
@@ -70,7 +78,12 @@ class ProductController extends Controller
 
         $categoryNames = Category::All()->pluck('category_name', 'id');
 
-        return view('admin.edit_product')->with('productByUrlId', $productById)->with('allCategoryNames', $categoryNames);
+        $discountNames = Discount::All()->pluck('discount_name', 'id');
+
+        return view('admin.edit_product')
+            ->with('productByUrlId', $productById)
+            ->with('allCategoryNames', $categoryNames)
+            ->with('allDiscountNames', $discountNames);
     }
 
 
@@ -82,7 +95,7 @@ class ProductController extends Controller
             [
                 'product_name' => 'required',
                 'product_price' => 'required',
-                'product_category' => 'required',
+                'products_category_id_categories_id' => 'required',
                 'product_image' => 'image|nullable|max:1999',
             ],
         );
@@ -91,7 +104,9 @@ class ProductController extends Controller
 
         $updateProductByHiddenId->product_name = $request->input('product_name');
         $updateProductByHiddenId->product_price = $request->input('product_price');
-        $updateProductByHiddenId->category_id = (int)$request->input('product_category');
+        $updateProductByHiddenId->discount_id = (int)$request->input('product_discount');
+        $updateProductByHiddenId->category_id = (int)$request->input('products_category_id_categories_id');
+        $updateProductByHiddenId->product_description = $request->input('product_description');
 
         if ($request->hasFile('product_image')) {
             $fileNameWithExt = $request->file('product_image')->getClientOriginalName();

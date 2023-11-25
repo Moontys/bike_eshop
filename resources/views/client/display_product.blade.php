@@ -36,9 +36,7 @@
 						</p>
 					</div>
 					<p class="price"><span>{{ $productByUrlId->product_price . ' €' }}</span></p>
-					<p> Description, text. About Product.  Description, text. About Product.  Description, text. About Product.  Description, text. About Product.
-						  Description, text. About Product.  Description, text. About Product.  Description, text. About Product.  Description, text. About Product.  
-						  Description, text. About Product.  Description, text. About Product. </p>
+					<p> {{ $productByUrlId->product_description }} </p>
 					<div class="row mt-4">
 						<div class="col-md-6">
 							<div class="form-group d-flex">
