@@ -2,7 +2,7 @@
 
 
 @section('title')
-    Add Category
+    Edit Discount
 @endsection
 
 
@@ -34,19 +34,26 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="card card-primary">
+                        <div class="card card-danger">
 
                             <div class="card-header">
-                                <h3 class="card-title">Add Category</h3>
+                                <h3 class="card-title">Edit Discount</h3>
                             </div>
 
-                            {!! Form::open(['action' => 'App\Http\Controllers\CategoryController@saveAddedCategory', 'method' => 'POST']) !!}
+                            {!! Form::open(['action' => 'App\Http\Controllers\DiscountController@updateEditedDiscount', 'method' => 'POST']) !!}
                             {{ csrf_field() }}
 
                             <div class="card-body">
                                 <div class="form-group">
-                                    {{ Form::label('inputCategoryName', 'Category Name') }}
-                                    {{ Form::text('category_name', '', ['class' => 'form-control', 'placeholder' => 'Enter Category Name', 'id' => 'inputCategoryName']) }}
+                                    {{ Form::hidden('id', $discountByUrlId->id) }}  <!-- hidden "id" for method: "updateEditedDiscount" -->
+
+                                    {{ Form::label('inputDiscountPercentage', 'Discount Percentage') }}
+                                    {{ Form::number('discount_percentage', $discountByUrlId->discount_percentage, ['class' => 'form-control', 'id' => 'inputDiscountPercentage']) }}
+                                </div>
+
+                                <div class="form-group">
+                                    {{ Form::label('inputDiscountName', 'Discount Name') }}
+                                    {{ Form::text('discount_name', $discountByUrlId->discount_name, ['class' => 'form-control', 'id' => 'inputDiscountName']) }}
                                 </div>
 
                                 <div class="card-footer">

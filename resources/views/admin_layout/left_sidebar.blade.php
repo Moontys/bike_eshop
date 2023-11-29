@@ -148,7 +148,7 @@
                         </ul>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{url('')}}" class="nav-link {{request()->is('add-product') ? 'active' : ''}}">
+                                <a href="{{ url('/add-discount') }}" class="nav-link {{request()->is('add-product') ? 'active' : ''}}">
                                     <i class="far fa-file nav-icon"></i>
                                     <p>Add Discount</p>
                                 </a>

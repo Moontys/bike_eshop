@@ -40,16 +40,28 @@
                   <thead>
                     <tr>
                       <th>Num.</th>
-                      <th>Picture</th>
-                      <th>Product Name</th>
-                      <th>Product Category</th>
-                      <th>Product Price</th>
-                      <th>Discounts</th>
+                      <th>Discount Percentage</th>
+                      <th>Discount Name</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
 
+                    @foreach ($allDiscounts as $discount)
+                      <tr>
+                        <td>{{ $increment }}</td>
+                        <td>{{ $discount->discount_name }}</td>
+                        <td>{{ $discount->discount_percentage . '%' }}</td>
+                        
+                        <td>
+                          <a href="{{ url('/edit-discount/' . $discount->id) }}" class="btn btn-primary"><i class="nav-icon fas fa-edit"></i></a>
+                          <a href="{{ url('/delete-discount/' . $discount->id) }}" id="delete" class="btn btn-danger"><i class="nav-icon fas fa-trash"></i></a>
+                        </td>
+                      </tr>
+                    
+                    {{ Form::hidden('', $increment = $increment + 1) }}
+
+                    @endforeach
 
                   </tbody>
                 </table>

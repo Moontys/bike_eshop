@@ -44,6 +44,7 @@
                             {{ csrf_field() }}
                             
                             <div class="card-body">
+
                                 <div class="form-group">
                                     {{ Form::label('inputProductName', 'Product Name') }}
                                     {{ Form::text('product_name', '', ['class' => 'form-control', 'placeholder' => 'Enter Product Name', 'id' => 'inputProductName']) }}
@@ -56,7 +57,7 @@
 
                                 <div class="form-group">
                                     {{ Form::label('inputProductDiscountName', 'Product Discount') }}
-                                    {{ Form::select('product_discount', $allDiscountNames, null, ['class' => 'form-control select2', 'placeholder' => 'Select Product Discount Name', 'id' => 'inputProductDiscountName']) }}
+                                    {{ Form::select('products_discount_id_discounts_id', $allDiscountNames, null, ['class' => 'form-control select2', 'placeholder' => 'Select Product Discount Name', 'id' => 'inputProductDiscountName']) }}
                                 </div>
 
                                 <div class="form-group">

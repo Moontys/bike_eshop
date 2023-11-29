@@ -72,7 +72,7 @@
                         </td>
                       </tr>
                       
-                      {{ Form::hidden('', $increment = $increment + 1) }}
+                    {{ Form::hidden('', $increment = $increment + 1) }}
 
                     @endforeach
 

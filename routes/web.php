@@ -12,9 +12,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\SliderController;
-
-
-
+use App\Models\Discount;
 
 // Route::get('/', [ClientController::class, 'home']);
 
@@ -117,7 +115,19 @@ Route::get('/display-product/{id}', [ProductController::class, 'displayProduct']
 
 
 
+
 Route::get('/all-discounts', [DiscountController::class, 'allDiscounts']);
+
+Route::get('/add-discount', [DiscountController::class, 'addDiscount']);
+
+Route::post('/save-discount', [DiscountController::class, 'saveAddedDiscount']);
+
+Route::get('/edit-discount/{id}', [DiscountController::class, 'editDiscount']);
+
+Route::post('/update-discount', [DiscountController::class, 'updateEditedDiscount']);
+
+Route::get('/delete-discount/{id}', [DiscountController::class, 'deleteDiscount']);
+
 
 
 

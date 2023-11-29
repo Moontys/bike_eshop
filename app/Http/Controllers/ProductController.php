@@ -31,17 +31,20 @@ class ProductController extends Controller
         $discountNames = Discount::All()->pluck('discount_name', 'id');
 
         return view('admin.add_product')
-        ->with('allCategoryNames', $categoryNames)
-        ->with('allDiscountNames', $discountNames);
+            ->with('allCategoryNames', $categoryNames)
+            ->with('allDiscountNames', $discountNames);
     }
 
 
     public function saveAddedProduct(Request $request): RedirectResponse
     {
-        $this->validate($request, [
+        $this->validate(
+            $request, 
+            [
             'product_name' => 'required',
             'product_price' => 'required',
             'products_category_id_categories_id' => 'required',
+            'product_description' => 'required|max:5000',
             'product_image' => 'image|nullable|max:1999',
         ]);
 
@@ -59,7 +62,7 @@ class ProductController extends Controller
         $newProduct = new Product();
         $newProduct->product_name = $request->input('product_name');
         $newProduct->product_price = $request->input('product_price');
-        $newProduct->discount_id = $request->input('product_discount');
+        $newProduct->discount_id = $request->input('products_discount_id_discounts_id');
         $newProduct->category_id = (int)$request->input('products_category_id_categories_id');
         $newProduct->product_status = 1;
         $newProduct->product_description = $request->input('product_description');
@@ -96,6 +99,7 @@ class ProductController extends Controller
                 'product_name' => 'required',
                 'product_price' => 'required',
                 'products_category_id_categories_id' => 'required',
+                'product_description' => 'required|max:5000',
                 'product_image' => 'image|nullable|max:1999',
             ],
         );
@@ -104,7 +108,7 @@ class ProductController extends Controller
 
         $updateProductByHiddenId->product_name = $request->input('product_name');
         $updateProductByHiddenId->product_price = $request->input('product_price');
-        $updateProductByHiddenId->discount_id = (int)$request->input('product_discount');
+        $updateProductByHiddenId->discount_id = (int)$request->input('products_discount_id_discounts_id');
         $updateProductByHiddenId->category_id = (int)$request->input('products_category_id_categories_id');
         $updateProductByHiddenId->product_description = $request->input('product_description');
 

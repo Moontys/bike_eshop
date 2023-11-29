@@ -42,12 +42,12 @@
                     {{ Form::hidden('id', $sliderByUrlId->id) }}  <!-- hidden "id" for method: "updateEditedSlider" -->
 
                     {{ Form::label('inputSliderDescriptionOne', 'Slider Description 1') }}
-                    {{ Form::text('slider_description1', $sliderByUrlId->slider_description1, ['class' => 'form-control', 'placeholder' => 'Enter Description One', 'id' => 'inputSliderDescriptionOne']) }}
+                    {{ Form::text('slider_description1', $sliderByUrlId->slider_description1, ['class' => 'form-control', 'id' => 'inputSliderDescriptionOne']) }}
                   </div>
 
                   <div class="form-group">
                     {{ Form::label('inputSliderDescriptionTwo', 'Slider Description 2') }}
-                    {{ Form::text('slider_description2', $sliderByUrlId->slider_description2, ['class' => 'form-control', 'placeholder' => 'Enter Description Two', 'id' => 'inputSliderDescriptionTwo']) }}
+                    {{ Form::text('slider_description2', $sliderByUrlId->slider_description2, ['class' => 'form-control', 'id' => 'inputSliderDescriptionTwo']) }}
                   </div>
 
                   <div class="form-group">

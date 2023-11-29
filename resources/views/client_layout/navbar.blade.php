@@ -15,11 +15,15 @@
           <li class="nav-item active"><a href="{{ url('/') }}" class="nav-link">Contact</a></li>
           <li class="nav-item cta cta-colored"><a href="{{ url('/cart') }}" class="nav-link"><span class="icon-shopping_cart"></span>[{{ Session::has('cart') ? Session::get('cart')->totalQty : 0 }}]</a></li>
           
-          @if (Session::has('client'))
-            <li class="nav-item active"><a href="{{url('/log-out')}}" class="nav-link"><span class="fa fa-user"></span>Log Out</a></li>
-          @else
-            <li class="nav-item active"><a href="{{url('/login')}}" class="nav-link"><span class="fa fa-user"></span>Log In</a></li>
-          @endif
+            @if (Session::has('client'))
+
+              <li class="nav-item active"><a href="{{url('/log-out')}}" class="nav-link"><span class="fa fa-user"></span>Log Out</a></li>
+
+            @else
+
+              <li class="nav-item active"><a href="{{url('/login')}}" class="nav-link"><span class="fa fa-user"></span>Log In</a></li>
+              
+            @endif
 
         </ul>
       </div>

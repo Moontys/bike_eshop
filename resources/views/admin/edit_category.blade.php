@@ -41,7 +41,7 @@
                                     {{ Form::hidden('id', $categoryByUrlId->id) }}  <!-- hidden "id" for method: "updateEditedCategory" -->
 
                                     {{ Form::label('inputCategoryName', 'Category Name') }}
-                                    {{ Form::text('category_name', $categoryByUrlId->category_name, ['class' => 'form-control', 'placeholder' => 'Enter Category Name', 'id' => 'inputCategoryName']) }}
+                                    {{ Form::text('category_name', $categoryByUrlId->category_name, ['class' => 'form-control', 'id' => 'inputCategoryName']) }}
                                 </div>
 
                                 <div class="card-footer">
