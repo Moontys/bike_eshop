@@ -57,8 +57,7 @@
 
                                 <div class="form-group">
                                     {{ Form::label('inputProductDiscount', 'Product Discount') }}
-                                    {{ Form::select('products_discount_id_discounts_id', $allDiscountNames, $productByUrlId->discount_id, ['class' => 'form-control', 'id' => 'inputProductDiscount']) }}
-                                    {{-- {{ Form::select('products_discount_id_discounts_id', $allDiscountNames, $productByUrlId->discount_id, null, ['placeholder' => 'Please select ...', 'class' => 'form-control']) }} --}}
+                                    {{ Form::select('products_discount_id_discounts_id', [null => 'Please Select Discount Name'] + $allDiscountNames, $productByUrlId->discount_id, ['class' => 'form-control', 'id' => 'inputProductDiscount']) }}
                                 </div>
 
                                 <div class="form-group">

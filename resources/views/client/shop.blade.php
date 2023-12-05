@@ -1,5 +1,8 @@
 @extends('client_layout.client')
 
+@php
+	use App\Calculator\DiscountCalculator;
+@endphp
 
 @section('title')
     Shop
@@ -62,7 +65,7 @@
 
 								@if ($productByStatusOrByCategoryAndStatus->discount_id !== null)
 
-									<span class="status"> - {{ $productByStatusOrByCategoryAndStatus->discount->discount_percentage }} % </span>
+									<span class="status"> -{{ $productByStatusOrByCategoryAndStatus->discount->discount_percentage }}% </span>
 
 								@endif
 
@@ -72,9 +75,17 @@
 								<h3><a href="3">{{ $productByStatusOrByCategoryAndStatus->product_name }}</a></h3>
 								<div class="d-flex">
 									<div class="pricing">
-										<p class="price"><span class="mr-2 price-dc"></span><span class="price-sale">{{ $productByStatusOrByCategoryAndStatus->product_price . ' €' }}</span></p>
+										<p class="price">
+
+											@if ($productByStatusOrByCategoryAndStatus->discount_id !== null)
+												<span class="mr-2 price-dc">{{ $productByStatusOrByCategoryAndStatus->product_price }}€</span>
+											@endif
+
+											<span class="price-sale">{{ DiscountCalculator::calculateForProduct($productByStatusOrByCategoryAndStatus) }}€</span>
+										</p>
 									</div>
 								</div>
+
 								<div class="bottom-area d-flex px-3">
 									<div class="m-auto d-flex">
 										<a href="{{ url('/display-product/' . $productByStatusOrByCategoryAndStatus->id) }}" class="add-to-cart d-flex justify-content-center align-items-center text-center">

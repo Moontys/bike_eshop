@@ -6,7 +6,7 @@ use App\Models\Product;
 
 class DiscountCalculator
 {
-    public function calculateForProduct(Product $product): float
+    public static function calculateForProduct(Product $product): float
     {
         if ($product->discount_id === null){
             return $product->product_price;

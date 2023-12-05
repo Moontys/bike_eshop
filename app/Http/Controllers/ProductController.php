@@ -46,7 +46,7 @@ class ProductController extends Controller
             'products_category_id_categories_id' => 'required',
             'product_description' => 'required|max:5000',
             'product_image' => 'image|nullable|max:1999',
-        ]);
+            ]);
 
         if ($request->hasFile('product_image')) {
             $fileNameWithExt = $request->file('product_image')->getClientOriginalName();
@@ -86,7 +86,7 @@ class ProductController extends Controller
         return view('admin.edit_product')
             ->with('productByUrlId', $productById)
             ->with('allCategoryNames', $categoryNames)
-            ->with('allDiscountNames', $discountNames);
+            ->with('allDiscountNames', $discountNames->all());
     }
 
 
@@ -108,7 +108,13 @@ class ProductController extends Controller
 
         $updateProductByHiddenId->product_name = $request->input('product_name');
         $updateProductByHiddenId->product_price = $request->input('product_price');
-        $updateProductByHiddenId->discount_id = (int)$request->input('products_discount_id_discounts_id');
+        
+        if ($request->input('products_discount_id_discounts_id') !== null) {
+            $updateProductByHiddenId->discount_id = (int)$request->input('products_discount_id_discounts_id');
+        } else {
+            $updateProductByHiddenId->discount_id = $request->input('products_discount_id_discounts_id');
+        }
+
         $updateProductByHiddenId->category_id = (int)$request->input('products_category_id_categories_id');
         $updateProductByHiddenId->product_description = $request->input('product_description');
 
