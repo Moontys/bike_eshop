@@ -1,5 +1,11 @@
 @extends('admin_layout.admin')
 
+
+@php
+	use App\Calculator\DiscountCalculator;
+@endphp
+
+
 @section('title')
     All Products
 @endsection
@@ -43,7 +49,9 @@
                       <th>Product Name</th>
                       <th>Product Category</th>
                       <th>Product Price</th>
-                      <th>Discounts</th>
+                      <th>Product Discount</th>
+                      <th>Product Price After Discount</th>
+                      <th>Product Discount Value</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
@@ -57,8 +65,10 @@
                         </td>
                         <td>{{ $product->product_name }}</td>
                         <td>{{ $product->category->category_name }}</td>
-                        <td>{{ $product->product_price . ' €' }}</td>
-                        <td>{{ $product->discount->discount_percentage ?? 0 }}</td>
+                        <td>{{ $product->product_price }}€</td>
+                        <td>{{ $product->discount->discount_percentage ?? 0 }}% </td>
+                        <td>{{ DiscountCalculator::calculateProductPriceAfterDiscount($product) }}€ </td>
+                        <td>{{ DiscountCalculator::calculateProductDiscountValue($product) }}€ </td>
                         <td>
 
                           @if ($product->product_status == 1)

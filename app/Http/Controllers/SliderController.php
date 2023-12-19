@@ -61,7 +61,8 @@ class SliderController extends Controller
     {
         $sliderById = Slider::find($id);
 
-        return view('admin.edit_slider')->with('sliderByUrlId', $sliderById);
+        return view('admin.edit_slider')
+            ->with('sliderByUrlId', $sliderById);
     }
 
 
@@ -121,7 +122,8 @@ class SliderController extends Controller
 
         $activateSliderByUrlId->update();
 
-        return back()->with('status', 'The Slider Activated Successfully');
+        return back()
+            ->with('status', 'The Slider Activated Successfully');
     }
 
 
@@ -135,7 +137,8 @@ class SliderController extends Controller
 
         $unactivateSliderByUrlId->update();
 
-        return back()->with('status', 'The Slider Unactivated Successfully');
+        return back()
+            ->with('status', 'The Slider Unactivated Successfully');
     }
 }
 

@@ -11,17 +11,16 @@ use Illuminate\Http\Request;
 use Srmklive\PayPal\Services\ExpressCheckout;
 use App\Models\Client;
 use App\Models\Order;
-use App\Models\Slider;
 use App\Models\Product;
-use App\Models\Category;
 use App\Cart;
 use App\Mail\SendMail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
+
 class ClientController extends Controller
 {
-
+    
     public function addToCart(int $id): RedirectResponse
     {
         $product = Product::find($id);

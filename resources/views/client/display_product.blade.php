@@ -1,10 +1,13 @@
 @extends('client_layout.client')
 
+@php
+	use App\Calculator\DiscountCalculator;
+@endphp
+
 
 @section('title')
     {{ $productByUrlId->product_name }}
 @endsection
-
 
 
 @section('content')
@@ -35,8 +38,22 @@
 							<a href="#" class="mr-2" style="color: #000;">500 <span style="color: #bbb;">Sold</span></a>
 						</p>
 					</div>
-					<p class="price"><span>{{ $productByUrlId->product_price . ' €' }}</span></p>
+					
+					
+					
+						<p class="price">
+
+							@if ($productByUrlId->discount_id !== null)
+								<span class="mr-2 price-dc">{{ $productByUrlId->product_price }}€</span>
+							@endif
+
+							<span class="price-sale">{{ DiscountCalculator::calculateProductPriceAfterDiscount($productByUrlId) }}€ </span>
+						</p>
+					
+					
+					
 					<p> {{ $productByUrlId->product_description }} </p>
+
 					<div class="row mt-4">
 						<div class="col-md-6">
 							<div class="form-group d-flex">

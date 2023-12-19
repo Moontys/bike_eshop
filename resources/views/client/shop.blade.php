@@ -45,7 +45,7 @@
 					
 					<ul class="product-category">
 
-						<li><a href="{{ url('/shop') }}" class="{{ request()->is('shop*') ? 'active' : '' }}">All</a></li>
+						<li><a href="{{ url('/shop') }}" class="{{ request()->is('shop*') || request()->is('/') ? 'active' : '' }}">All</a></li>
 					
 						@foreach ($allCategories as $category)
 							<li><a href="{{ url('/products-by-category/' . $category->category_name) }}" class="{{ request()->is('products-by-category/' . $category->category_name) ? 'active' : '' }}">{{ $category->category_name }}</a></li>
@@ -57,16 +57,14 @@
     		</div>
 
     		<div class="row">
-				@foreach ($allProductsByStatusOrByCategoryAndStatus as $productByStatusOrByCategoryAndStatus)
+				@foreach ($allProductsByStatusOrByCategoryAndStatus->items() as $productByStatusOrByCategoryAndStatus)
 
 					<div class="col-md-6 col-lg-3 ftco-animate">
 						<div class="product">
 							<a href="{{ url('/display-product/' . $productByStatusOrByCategoryAndStatus->id) }}" class="img-prod"><img class="img-fluid" src="{{ asset('storage/product_images/' . $productByStatusOrByCategoryAndStatus->product_image) }}" alt="Image">
 
 								@if ($productByStatusOrByCategoryAndStatus->discount_id !== null)
-
 									<span class="status"> -{{ $productByStatusOrByCategoryAndStatus->discount->discount_percentage }}% </span>
-
 								@endif
 
 								<div class="overlay"></div>
@@ -78,10 +76,10 @@
 										<p class="price">
 
 											@if ($productByStatusOrByCategoryAndStatus->discount_id !== null)
-												<span class="mr-2 price-dc">{{ $productByStatusOrByCategoryAndStatus->product_price }}€</span>
+												<span class="mr-2 price-dc">{{ $productByStatusOrByCategoryAndStatus->product_price }}€ </span>
 											@endif
 
-											<span class="price-sale">{{ DiscountCalculator::calculateForProduct($productByStatusOrByCategoryAndStatus) }}€</span>
+											<span class="price-sale">{{ DiscountCalculator::calculateProductPriceAfterDiscount($productByStatusOrByCategoryAndStatus) }}€ </span>
 										</p>
 									</div>
 								</div>
@@ -104,21 +102,26 @@
 			</div>
 
 
-			<div class="row mt-5">
-				<div class="col text-center">
-					<div class="block-27">
-						<ul>
-							<li><a href="#">&lt;</a></li>
-							<li class="active"><span>1</span></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">5</a></li>
-							<li><a href="#">&gt;</a></li>
-						</ul>
+			@if ($allProductsByStatusOrByCategoryAndStatus->lastPage() > 1)
+				<div class="row mt-5">
+					<div class="col text-center">
+						<div class="block-27">
+							<ul>
+								<li><a href="#">&lt;</a></li>
+
+								@for ($i = 1; $i <= $allProductsByStatusOrByCategoryAndStatus->lastPage(); $i++)
+									<li class="{{ ($allProductsByStatusOrByCategoryAndStatus->currentPage() == $i) ? ' active' : '' }}"><span><a href="{{ $allProductsByStatusOrByCategoryAndStatus->url($i) }}">{{ $i }}</a></span></li>
+								@endfor
+								
+								<li><a href="#">&gt;</a></li>
+							</ul>
+						</div>
 					</div>
 				</div>
-			</div>
+			@endif
+
+
+
     	</div>
     </section>
 <!-- end content -->

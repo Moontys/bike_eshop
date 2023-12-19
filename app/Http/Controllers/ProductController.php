@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
+    private const PRODUCTS_NUMBER_PER_PAGE = 8;
+    
     public function allProducts(): View
     {
         $products = Product::All();
@@ -43,9 +45,9 @@ class ProductController extends Controller
             [
             'product_name' => 'required',
             'product_price' => 'required',
-            'products_category_id_categories_id' => 'required',
+            // 'products_category_id_categories_id' => 'required',
             'product_description' => 'required|max:5000',
-            'product_image' => 'image|nullable|max:1999',
+            // 'product_image' => 'image|nullable|max:1999',
             ]);
 
         if ($request->hasFile('product_image')) {
@@ -70,7 +72,8 @@ class ProductController extends Controller
         
         $newProduct->save();
     
-        return back()->with('status', 'The Product "' . $request->input('product_name') . '" Added Successfully');
+        return back()
+            ->with('status', 'The Product "' . $request->input('product_name') . '" Added Successfully');
     }
 
 
@@ -135,7 +138,8 @@ class ProductController extends Controller
 
         $updateProductByHiddenId->update();
 
-        return redirect('/all-products')->with('status', 'The Product "' . $request->input('product_name') . '" Updated Successfully');
+        return redirect('/all-products')
+            ->with('status', 'The Product "' . $request->input('product_name') . '" Updated Successfully');
     }
 
 
@@ -151,7 +155,8 @@ class ProductController extends Controller
 
         $deleteProductByUrlId->delete();
 
-        return back()->with('status', 'The Product "' . $deleteProductByUrlId->product_name . '" Deleted Successfully');
+        return back()
+            ->with('status', 'The Product "' . $deleteProductByUrlId->product_name . '" Deleted Successfully');
     }
 
 
@@ -164,7 +169,8 @@ class ProductController extends Controller
 
         $activateProductByUrlId->update();
 
-        return back()->with('status', 'The Product "' . $activateProductByUrlId->product_name . '" Activated Successfully');
+        return back()
+            ->with('status', 'The Product "' . $activateProductByUrlId->product_name . '" Activated Successfully');
     }
 
 
@@ -183,11 +189,21 @@ class ProductController extends Controller
 
     public function productsByCategory($category_name): View
     {
-        $productsByCategoryAndStatus = Product::select('products.*')->join('categories', 'categories.id', '=', 'products.category_id')->where('categories.category_name', $category_name)->where('product_status', 1)->get();
+        $productsByCategoryAndStatus = Product::select('products.*')
+            ->join('categories', 'categories.id', '=', 'products.category_id')
+            ->where('categories.category_name', $category_name)
+            ->where('product_status', 1)
+            ->paginate(self::PRODUCTS_NUMBER_PER_PAGE);
 
         $categories = Category::All();
 
-        return view('client.shop')->with('allProductsByStatusOrByCategoryAndStatus', $productsByCategoryAndStatus)->with('allCategories', $categories);
+        $slidersByStatus = Slider::All()
+            ->where('slider_status', 1);
+
+        return view('client.shop')
+            ->with('allProductsByStatusOrByCategoryAndStatus', $productsByCategoryAndStatus)
+            ->with('allSlidersByStatus', $slidersByStatus)
+            ->with('allCategories', $categories);
     }
 
 
@@ -195,18 +211,24 @@ class ProductController extends Controller
     {
         $categories = Category::All();
 
-        $productsByStatus = Product::All()->where('product_status', 1);
+        $productsByStatus = Product::where('product_status', 1)
+            ->paginate(self::PRODUCTS_NUMBER_PER_PAGE);
 
-        $slidersByStatus = Slider::All()->where('slider_status', 1);
+        $slidersByStatus = Slider::All()
+            ->where('slider_status', 1);
 
-        return view('client.shop')->with('allCategories', $categories)->with('allProductsByStatusOrByCategoryAndStatus', $productsByStatus)->with('allSlidersByStatus', $slidersByStatus);
+        return view('client.shop')
+            ->with('allCategories', $categories)
+            ->with('allProductsByStatusOrByCategoryAndStatus', $productsByStatus)
+            ->with('allSlidersByStatus', $slidersByStatus);
     }
 
-
+    
     public function displayProduct(int $id): View
     {
         $productById = Product::find($id);
 
-        return view('client.display_product')->with('productByUrlId', $productById);
+        return view('client.display_product')
+            ->with('productByUrlId', $productById);
     }
 }

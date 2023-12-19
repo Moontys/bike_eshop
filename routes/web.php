@@ -5,8 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthlikefornowController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ClientController;
-use App\Http\Controllers\ContactController;
-use App\Http\Controllers\HomeController;
+
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DiscountController;
@@ -128,6 +127,9 @@ Route::post('/update-discount', [DiscountController::class, 'updateEditedDiscoun
 
 Route::get('/delete-discount/{id}', [DiscountController::class, 'deleteDiscount']);
 
+
+
+// Route::get('/items', [ClientController::class, 'pagination']);
 
 
 
