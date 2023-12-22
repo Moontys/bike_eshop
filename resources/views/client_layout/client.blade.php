@@ -31,6 +31,15 @@
   <body class="goto-here">
 
 
+
+    {{-- start header --}}
+
+      @include('client_layout.header')
+
+    {{-- start header --}}
+
+
+
     {{-- start navbar--}}
 
       @include('client_layout.navbar')
@@ -44,7 +53,6 @@
       @yield('content')
     
     {{-- end content --}}
-
 
   
       

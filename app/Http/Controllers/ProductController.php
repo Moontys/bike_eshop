@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
-    private const PRODUCTS_NUMBER_PER_PAGE = 8;
+    private const PRODUCTS_NUMBER_PER_PAGE = 12;
     
     public function allProducts(): View
     {
@@ -45,9 +45,9 @@ class ProductController extends Controller
             [
             'product_name' => 'required',
             'product_price' => 'required',
-            // 'products_category_id_categories_id' => 'required',
+            'products_category_id_categories_id' => 'required',
             'product_description' => 'required|max:5000',
-            // 'product_image' => 'image|nullable|max:1999',
+            'product_image' => 'image|nullable|max:1999',
             ]);
 
         if ($request->hasFile('product_image')) {
