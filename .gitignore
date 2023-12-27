@@ -1,3 +1,4 @@
 .env
 vendor
 todo.txt
+node_modules/
