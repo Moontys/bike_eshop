@@ -14,6 +14,7 @@
 1. Create environment file (if .env file does not already exists): ```cp .env.dist .env```
 2. Get inside the container (your application to run commands): ```docker exec -it app-php bash```
 3. Run ```composer install```
+4. Run ```npm install && npm build```
 
 
 # Helpers
