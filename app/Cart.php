@@ -1,66 +1,89 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App;
 
-class Cart
+use App\Models\Product;
+use App\Calculator\DiscountCalculator;
+
+final class Cart
 {
+    /**
+     * @var array<int, array{qty: int, product_id: int, product_name: string, product_price: float, product_image: string, item: Product}>|null
+     */
     public ?array $items = null;
     public int $totalQty = 0;
-    public int $totalPrice = 0;
+    public float $totalDiscount = 0;
+    public float $totalPrice = 0;
+    public float $totalPriceAfterDiscount = 0;
 
-
-    public function __construct($oldCart){
-        
-        if($oldCart) {
+    public function __construct(?Cart $oldCart)
+    {
+        if ($oldCart !== null) {
             $this->items = $oldCart->items;
             $this->totalQty = $oldCart->totalQty;
             $this->totalPrice = $oldCart->totalPrice;
+            $this->totalDiscount = $oldCart->totalDiscount;
+            $this->totalPriceAfterDiscount = $oldCart->totalPriceAfterDiscount;
         }
     }
 
-    public function add($item, $product_id){
+    public function add(Product $product): void
+    {
+        $storedItem = [
+            'qty' => 0,
+            'product_id' => 0,
+            'product_name' => $product->product_name,
+            'product_price' => $product->product_price,
+            'product_discount' => DiscountCalculator::calculateProductDiscountValue($product),
+            'product_price_after_discount' => DiscountCalculator::calculateProductPriceAfterDiscount($product),
+            'product_image' => $product->product_image,
+            'item' => $product,
+        ];
 
-        $storedItem = ['qty' => 0, 'product_id' => 0, 'product_name' => $item->product_name,
-    'product_price' => $item->product_price, 'product_image' => $item->product_image, 'item' =>$item];
-
-    if($this->items){
-        if(array_key_exists($product_id, $this->items)){
-            $storedItem = $this->items[$product_id];
+        if ($this->items !== null && array_key_exists($product->id, $this->items)) {
+            $storedItem = $this->items[$product->id];
         }
+
+        $storedItem['qty']++; 
+        $storedItem['product_id'] = $product->id;
+        $storedItem['product_name'] = $product->product_name;
+        $storedItem['product_price'] = $product->product_price;
+        $storedItem['product_discount'] = DiscountCalculator::calculateProductDiscountValue($product);
+        $storedItem['product_price_after_discount'] = DiscountCalculator::calculateProductPriceAfterDiscount($product);
+        $storedItem['product_image'] = $product->product_image;
+
+        $this->totalQty++;
+        $this->totalPrice += $product->product_price;
+        $this->totalDiscount += $storedItem['product_discount'];
+        $this->totalPriceAfterDiscount += $storedItem['product_price_after_discount'];
+        $this->items[$product->id] = $storedItem;
     }
 
-    $storedItem['qty']++;
-    $storedItem['product_id'] = $product_id;
-    $storedItem['product_name'] = $item->product_name;
-    $storedItem['product_price'] = $item->product_price;
-    $storedItem['product_image'] = $item->product_image;
-    $this->totalQty++;
-    $this->totalPrice += $item->product_price;
-    $this->items[$product_id] = $storedItem;
+    public function updateQuantity(int $productId, int $newQuantity): void
+    {
+        $oldQuantity = (int)$this->items[$productId]['qty'];
 
+        $this->totalQty -= $oldQuantity;
+        $this->totalPrice -= $this->items[$productId]['product_price'] * $oldQuantity;
+        $this->totalDiscount -= $this->items[$productId]['product_discount'] * $oldQuantity;
+        $this->totalPriceAfterDiscount -= $this->items[$productId]['product_price_after_discount'] * $oldQuantity;
+
+        $this->items[$productId]['qty'] = $newQuantity;
+        $this->totalQty += $newQuantity;
+        $this->totalPrice += $this->items[$productId]['product_price'] * $newQuantity;
+        $this->totalDiscount += $this->items[$productId]['product_discount'] * $newQuantity;
+        $this->totalPriceAfterDiscount += $this->items[$productId]['product_price_after_discount'] * $newQuantity;
     }
 
-
-    public function updateQuantity($id, $qty) {
-        $this->totalQty -= $this->items[$id]['qty'];
-        $this->totalPrice -= $this->items[$id]['product_price'] * $this->items[$id]['qty'];
-        $this->items[$id]['qty'] = $qty;
-        $this->totalQty += $qty;
-        $this->totalPrice += $this->items[$id]['product_price'] * $qty;
-
+    public function removeItem(int $productId): void
+    {
+        $this->totalQty -= (int)$this->items[$productId]['qty'];
+        $this->totalPrice -= $this->items[$productId]['product_price'] * $this->items[$productId]['qty'];
+        $this->totalDiscount -= $this->items[$productId]['product_discount'] * $this->items[$productId]['qty'];
+        $this->totalPriceAfterDiscount -= $this->items[$productId]['product_price_after_discount'] * $this->items[$productId]['qty'];
+        
+        unset($this->items[$productId]);
     }
-
-
-    
-    public function removeItem($id){
-        $this->totalQty -= $this->items[$id]['qty'];
-        $this->totalPrice -= $this->items[$id]['product_price'] * $this->items[$id]['qty'];
-        unset($this->items[$id]);
-    }
-
-
-    }
-
-
-?>
+}

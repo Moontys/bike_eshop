@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Hash;
 Use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
@@ -27,7 +28,7 @@ class ClientController extends Controller
 
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
-        $cart->add($product, $id);
+        $cart->add($product);
         Session::put('cart', $cart);
 
         return back();
@@ -38,7 +39,7 @@ class ClientController extends Controller
     {
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
-        $cart->updateQuantity($id, $request->quantity);
+        $cart->updateQuantity($id, (int)$request->quantity);
         Session::put('cart', $cart);
 
         return back();
@@ -189,7 +190,7 @@ class ClientController extends Controller
   
 
 
-    public function postCheckout(Request $request): RedirectResponse
+    public function postCheckout(Request $request): RedirectResponse|Redirector
     {
         try
         {
@@ -210,10 +211,8 @@ class ClientController extends Controller
             $provider = new ExpressCheckout();
     
             $response = $provider->setExpressCheckout($checkoutData);
-    
+
             return redirect($response['paypal_link']);
-
-
         }
         catch(\Exception $e){
             return redirect('/checkout')->with('error', $e->getMessage());
@@ -232,7 +231,7 @@ class ClientController extends Controller
         foreach($cart->items as $item) {
             $itemDetails = [
                 'name' => $item['product_name'],
-                'price' => $item['product_price'],
+                'price' => $item['product_price_after_discount'],
                 'qty' => $item['qty'],
             ];
 
@@ -241,11 +240,11 @@ class ClientController extends Controller
 
         $checkoutData = [
             'items' => $data['items'],
-            'return_url' => url('/paiement-success'),
+            'return_url' => url('/payment-success'),
             'cancel_url' => url('/checkout'),
             'invoice_id' => uniqid(),
             'invoice_description' => "order description",
-            'total' => Session::get('cart')->totalPrice,
+            'total' => Session::get('cart')->totalPriceAfterDiscount,
         ];
 
         return $checkoutData;

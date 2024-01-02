@@ -1,6 +1,11 @@
 @extends('client_layout.client')
 
 
+@php
+	use App\Calculator\DiscountCalculator;
+@endphp
+
+
 @section('title')
 
     Check Out
@@ -65,20 +70,16 @@
 	          			<h3 class="billing-heading mb-4">Cart Total</h3>
 	          			<p class="d-flex">
 		    						<span>Subtotal</span>
-		    						<span>$20.60</span>
-		    					</p>
-		    					<p class="d-flex">
-		    						<span>Delivery</span>
-		    						<span>$0.00</span>
+		    						<span>{{ Session::has('cart') ? Session::get('cart')->totalPrice : null}}</span>
 		    					</p>
 		    					<p class="d-flex">
 		    						<span>Discount</span>
-		    						<span>$3.00</span>
+		    						<span>{{ Session::has('cart') ? Session::get('cart')->totalDiscount : null}}</span>
 		    					</p>
 		    					<hr>
 		    					<p class="d-flex total-price">
 		    						<span>Total</span>
-		    						<span>$17.60</span>
+		    						<span>{{ Session::has('cart') ? Session::get('cart')->totalPriceAfterDiscount : null}}</span>
 		    					</p>
 								</div>
 	          	</div>

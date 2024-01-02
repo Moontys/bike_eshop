@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use Illuminate\Support\Facades\App;
-// use Session;
 use Illuminate\Support\Facades\Session;
 
 
@@ -71,15 +70,15 @@ class PdfController extends Controller
                                 <td class="product-name">
                                     <h3>'.$item['product_name'].'</h3>
                                 </td>
-                                <td class="price">$ '.$item['product_price'].'</td>
+                                <td class="price">$ '.$item['product_price_after_discount'].'</td>
                                 <td class="qty">'.$item['qty'].'</td>
-                                <td class="total">$ '.$item['product_price']*$item['qty'].'</td>
+                                <td class="total">$ '.$item['product_price_after_discount']*$item['qty'].'</td>
                             </tr><!-- END TR-->
                             </tbody>';
 
             }
 
-            $totalPrice = $order->order_cart->totalPrice; 
+            $totalPrice = $order->order_cart->totalPriceAfterDiscount; 
 
         }
 

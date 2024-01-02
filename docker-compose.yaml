@@ -40,6 +40,23 @@ services:
         networks:
             - app-network
 
+    # Mysql testing service
+    mysql_testing:
+        image: mysql:8.0.27
+        container_name: app-mysql-testing
+        restart: always
+        environment:
+            - MYSQL_DATABASE=dev_testing
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_USER=app
+            - MYSQL_PASSWORD=apppass
+        volumes:
+            - ./docker/mysql/my.cnf:/etc/mysql-testing/conf.d/my.cnf
+        ports:
+            - 3307:3306
+        networks:
+            - app-network
+
     smtp:
         platform: linux/x86_64
         image: mailhog/mailhog

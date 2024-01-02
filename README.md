@@ -28,3 +28,7 @@
 
 1. Get inside the container (your application to run commands): ```docker exec -it app-php bash```
 2. Run PHP Codesniffer: ```vendor/bin/phpcs``` or ```composer analyse``` to run all static analysis
+
+# Tests
+
+1. Run ```php artisan test```

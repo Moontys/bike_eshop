@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Calculator;
 
 use App\Models\Product;
@@ -23,7 +25,7 @@ class DiscountCalculator
     public static function calculateProductDiscountValue(Product $product): float
     {
         if ($product->discount_id === null){
-            return $product->product_price;
+            return 0.0;
         } 
 
         $productPrice = $product->product_price;
@@ -33,4 +35,3 @@ class DiscountCalculator
         return $productDiscountValue;
     }
 }
-

@@ -54,7 +54,7 @@
                                           <p>Far far away, behind the word mountains, far from the countries</p>
                                       </td>
                                       
-                                      <td class="price">{{ $product['product_price'] }}</td>
+                                      <td class="price">{{ $product['product_price_after_discount'] }}</td>
                                       
                                       <form action="{{ url('/update-quantity/' . $product['product_id']) }}" method="POST">
 
@@ -68,7 +68,7 @@
                                         </td>
                                       </form>
 
-                                      <td class="total">{{ $product['qty'] * $product['product_price'] }}</td>
+                                      <td class="total">{{ $product['qty'] * $product['product_price_after_discount'] }}</td>
                                   </tr><!-- END TR-->
 
                                   @endforeach
@@ -126,20 +126,16 @@
                           <h3>Cart Totals</h3>
                           <p class="d-flex">
                               <span>Subtotal</span>
-                              <span>$20.60</span>
-                          </p>
-                          <p class="d-flex">
-                              <span>Delivery</span>
-                              <span>$0.00</span>
+                              <span>{{ Session::has('cart') ? Session::get('cart')->totalPrice : null}}</span>
                           </p>
                           <p class="d-flex">
                               <span>Discount</span>
-                              <span>$3.00</span>
+                              <span>{{ Session::has('cart') ? Session::get('cart')->totalDiscount : null}}</span>
                           </p>
                           <hr>
                           <p class="d-flex total-price">
                               <span>Total</span>
-                              <span>{{ Session::has('cart') ? Session::get('cart')->totalPrice : null}}</span>
+                              <span>{{ Session::has('cart') ? Session::get('cart')->totalPriceAfterDiscount : null}}</span>
                           </p>
                       </div>
                       <p><a href="{{url('/checkout')}}" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>

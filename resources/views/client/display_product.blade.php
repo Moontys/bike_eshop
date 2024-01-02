@@ -43,10 +43,6 @@
 					
 						<p class="price">
 
-							@if ($productByUrlId->discount_id !== null)
-								<span class="mr-2 price-dc">{{ $productByUrlId->product_price }}€</span>
-							@endif
-
 							<span class="price-sale">{{ DiscountCalculator::calculateProductPriceAfterDiscount($productByUrlId) }}€ </span>
 						</p>
 					
